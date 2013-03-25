@@ -1,0 +1,4 @@
+- if !printing?
+  = render @bill
+- else
+  = render 'verify_page', bill: @bill if params[:page] == 'verify'

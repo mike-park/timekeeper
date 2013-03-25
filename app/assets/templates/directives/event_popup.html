@@ -1,0 +1,24 @@
+<div class="event-popover popover {{side}} in">
+  <div class="arrow"></div>
+
+  <div class="popover-inner">
+    <span class="pull-right close" ng-click='close()'>X</span>
+    <h3 class="popover-title" ng-bind="event.title"></h3>
+    <div class="popover-content">
+      <p>{{event.eventCategoryName}} by {{event.therapistName}}</p>
+      <small>
+        <p>
+        <div>
+          <span class="key">Last Change: </span>
+          <span tk-date-from-now='event.updatedAt'></span>
+        </div>
+        <div ng-show='event.billedOn'>
+          <span class="key">Billed On: </span>
+          <span tk-date-format='event.billedOn' format='LL'></span>
+        </div>
+        </p>
+      </small>
+      <p class="btn btn-mini" ng-click='removeEvent()' ng-show='event.editable'>Remove</p>
+    </div>
+  </div>
+</div>

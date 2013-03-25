@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @therapist.first_name
+%p
+  %b Last name:
+  = @therapist.last_name
+%p
+  %b Abbrv:
+  = @therapist.abbrv
+
+= link_to 'Edit', edit_therapist_path(@therapist)
+\|
+= link_to 'Back', therapists_path

@@ -1,0 +1,13 @@
+= simple_form_for([parent, @bill], html: {class: 'form-horizontal'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = datepicker_field(f, :billed_on)
+    = f.input :number, input_html: {class: 'span2'}
+
+  .form-actions
+    = f.button :submit, class: 'btn-primary'
+    = cancel_link(therapist_bills_path(parent))
+
+= render 'included', bill_items: @bill.bill_items
+= render 'excluded', bill_items: parent.unbilled_items(@bill.billed_on)

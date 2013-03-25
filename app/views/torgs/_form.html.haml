@@ -1,0 +1,9 @@
+= simple_form_for(@torg) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = datepicker_field(f, :start_date, Date.current.at_beginning_of_month)
+    = datepicker_field(f, :end_date, Date.current.at_end_of_month)
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,56 @@
+%p
+  An die
+  %br
+  Frühförderung Gütersloh – IFF Zeitzen
+  %br
+  Fröbelstr.32
+  %br
+
+%p
+  33330 Gütersloh
+
+Re-Nr: IFF-Zeitzen-W-
+%strong #{bill.number}
+
+.row
+  .offset6
+    Gütersloh, den #{bill.billed_on.to_s(:de)}
+
+%p
+  Sehr geehrte Damen und Herren,
+%p
+  im Rahmen der Interdisziplinären Frühförderung Gütersloh – IFF Zeitzen stelle
+  %br
+  ich Ihnen folgende Rechnung:
+
+- bp = BillPresenter.new(bill)
+
+%table.table.therapist-bill-services.totals
+  %thead
+    %tr
+      %th Behandlungsart
+      %th Zahl der Fördereinheiten
+      %th Preis je Einheit
+      %th Summe
+  %tbody
+    - bp.services(all: true).each do |s|
+      %tr
+        %td= s.name
+        %td= s.qty
+        %td= number_to_euro s.price
+        %td= number_to_euro s.total
+    %tr.qty
+      %td
+      %td{colspan: 2} Gesamtbetrag:
+      %td= number_to_euro bill.total
+
+Zahlen Sie den Rechnungsbetrag unter Angabe der Rechnungsnummer bitte auf
+%br
+mein Konto bei der
+#{bill.therapist.bank},
+Konto #{bill.therapist.konto_nr},
+BLZ #{bill.therapist.blz}.
+
+
+:javascript
+  print();

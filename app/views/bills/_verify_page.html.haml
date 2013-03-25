@@ -1,0 +1,43 @@
+- bp = BillPresenter.new(bill)
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Vorname
+      %th Geburts-datum
+      %th Billed Date
+      - bp.service_names(all: true).each do |name|
+        %th= name
+  %tbody
+    - bp.clients.each do |c|
+      %tr
+        %td= c.last_name
+        %td= c.first_name
+        %td= c.dob
+        %td= bill.billed_on.to_s(:de)
+        - bp.service_abbrvs.each do |abbrv|
+          %td= c.services[abbrv].qty if c.services[abbrv]
+    %tr.qty
+      %td
+      %td
+      %td Summe
+      - bp.service_abbrvs.each do |abbrv|
+        %td= bp.services[abbrv].qty if bp.services[abbrv]
+    %tr.price
+      %td
+      %td
+      %td Preis
+      - bp.service_abbrvs.each do |abbrv|
+        %td= number_to_euro(bp.services[abbrv].price) if bp.services[abbrv]
+    %tr.total
+      %td
+      %td
+      %td Teilsummen
+      - bp.service_abbrvs.each do |abbrv|
+        %td= number_to_euro(bp.services[abbrv].total) if bp.services[abbrv]
+    %tr.total
+      %td
+      %td
+      %td Gesamt
+      %td= number_to_euro bill.total

@@ -1,0 +1,49 @@
+%div(ng-controller='listClientsCtrl')
+  .row-fluid
+    .span
+      = new_link 'Add Client', new_client_path
+
+  .row-fluid
+    .span5
+      %input.span12(tk-select2=true data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
+      %br
+      %label.all-box
+        %input(type='checkbox' ng-model='showAllClients')
+        Include all clients
+
+  #details(ng-show='client')
+    %h4
+      {{client.fullName}}
+      %a.btn.btn-small(href='{{client.url}}/edit') Edit
+      %a.btn.btn-small(tk-confirm='deleteClient(client)' title='Delete {{client.fullName}}' ng-hide='client.events.length') Delete
+
+    .row-fluid
+      .span2
+        .text-success(ng-show='client.active')
+          ACTIVE
+        .text-warning(ng-hide='client.active')
+          NOT ACTIVE
+      .span4
+        %b Geb.
+        %span(tk-date-format='client.dob' format='L')
+
+    %h3(ng-hide='client.events.length')
+      No Events
+
+    %table.table(ng-show='client.events.length')
+      %caption Events
+      %thead
+        %tr
+          %th Date
+          %th Event
+          %th Therapist
+          %th Action
+      %tbody
+        %tr(ng-repeat="event in client.events | orderBy:'-start'")
+          %td(tk-date-format='event.start' format='L')
+          %td {{event.eventCategoryName}}
+          %td {{event.therapistName}}
+          %td
+            %a(href='{{event.billUrl}}' ng-show='event.billUrl') View Bill
+            %a(href='#' tk-confirm='deleteEvent(event)' title='Delete {{event.eventCategoryName}} of {{event.therapistName}}')
+              %i.icon-trash(ng-show='event.editable')

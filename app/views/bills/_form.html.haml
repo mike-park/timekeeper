@@ -1,0 +1,37 @@
+= simple_form_for([parent, @bill], html: {class: 'form-horizontal'}) do |f|
+  = f.error_notification
+  - if @bill.errors.messages[:'bill_items.price']
+    .alert.alert-error
+      Bill cannot be created at this time.  Not all activities have a matching price.
+      Available price records are:
+      %ul
+        - EventCategoryPrice.for_therapist(current_user.therapist.abbrv).each do |p|
+          %li= p.event_category.title
+
+  .form-inputs
+    = datepicker_field(f, :billed_on)
+    = f.input :number
+
+    .row-fluid
+      .span12
+        %table.table.tablesorter.table-condensed.table-new-bill-items
+          %thead
+            %tr
+              %th Exclude?
+              %th Name
+              %th Date
+              %th Activity
+          %tbody
+            = f.simple_fields_for :bill_items do |bif|
+              - bi = bif.object
+              %tr
+                %td
+                  = bif.hidden_field :event_id
+                  = bif.input :_destroy, as: :boolean, label: false, input_html: {value: false}
+                %td= client_name bi.client, length: 30
+                %td= bi.occurred_on.to_s(:de)
+                %td= bi.event_category_title
+
+  .form-actions
+    = f.button :submit, class: 'btn-primary'
+    = cancel_link therapist_bills_path(parent)

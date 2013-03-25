@@ -1,0 +1,10 @@
+/*=============== collapsible blocks */
+*[data-collapsible] {
+  cursor: pointer;
+  // doesn't work when using table rows
+  //&:before { content: '►'; }
+  &:hover { background-color: #eee; }
+  //&.active {
+  //  &:before { content: '▼'; }
+  //}
+}

@@ -1,0 +1,23 @@
+- if @torg.related.any?
+  .btn-group
+    %a.btn.dropdown-toggle(data-toggle='dropdown' href='#')
+      Vergleichen Sie mit Bericht erstellt am
+      %span.caret
+    %ul.dropdown-menu
+      - @torg.related.each do |torg|
+        - title = l torg.created_at
+        %li= link_to title, compare_id: torg.id
+  %p
+
+- if @diff
+  %small
+    %table.table.table-condensed
+      %caption= @diff.title
+      %thead
+        %tr
+          %th
+          - Torg::CSV_FIELDS.each do |field|
+            %th= field
+      %tbody
+        - @diff.changes.each do |row|
+          = row

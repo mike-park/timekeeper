@@ -1,0 +1,77 @@
+.row-fluid
+  -#= print_button('Verify Page', page: :verify)
+  = print_button('Print Bill', page: :cover)
+
+.title Bill #{bill.number}
+
+.row-fluid
+  .span2 Date:
+  .span2
+    %strong #{bill.billed_on.to_s(:de)}
+.row-fluid
+  .span2 Total
+  .span2
+    %strong #{number_to_euro bill.total}
+
+- bp = BillPresenter.new(bill)
+
+%table.table.therapist-bill-services.totals
+  %thead
+    %tr
+      %th Behandlungsart
+      %th Zahl der Fördereinheiten
+      %th Preis je Einheit
+      %th Summe
+  %tbody
+    - bp.services(all: true).each do |s|
+      %tr
+        %td= s.name
+        %td= s.qty
+        %td= number_to_euro s.price
+        %td= number_to_euro s.total
+    %tr.qty
+      %td
+      %td{colspan: 2} Gesamtbetrag:
+      %td= number_to_euro bill.total
+
+%small
+  - columns = 2 + bp.service_abbrvs.count
+  %table.table.table-condensed.therapist-bill-clients.totals
+    %thead
+      %tr
+        %th Name
+        %th Geburts-datum
+        - bp.service_names.each do |name|
+          %th= name
+    %tbody
+      - bp.clients.each do |c|
+        %tr{data: {collapsible: true}}
+          %td= client_name c
+          %td= c.dob
+          - bp.service_abbrvs.each do |abbrv|
+            %td= c.services[abbrv].qty if c.services[abbrv]
+        %tr.collapse
+          %td{colspan: columns}
+            - c.client.events_from_bill(bill).each do |event|
+              = l event.occurred_on
+              = event.event_category_title
+              %br
+      %tr.qty
+        %td
+        %td Summe
+        - bp.service_abbrvs.each do |abbrv|
+          %td= bp.services[abbrv].qty if bp.services[abbrv]
+      %tr.price
+        %td
+        %td Preis
+        - bp.service_abbrvs.each do |abbrv|
+          %td= number_to_euro(bp.services[abbrv].price) if bp.services[abbrv]
+      %tr.total
+        %td
+        %td Teilsummen
+        - bp.service_abbrvs.each do |abbrv|
+          %td= number_to_euro(bp.services[abbrv].total) if bp.services[abbrv]
+      %tr.total
+        %td
+        %td Gesamt
+        %td= number_to_euro bill.total

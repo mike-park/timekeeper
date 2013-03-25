@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Therapist:
+  = @event.therapist
+%p
+  %b Event category:
+  = @event.event_category
+%p
+  %b User:
+  = @event.user
+%p
+  %b Occured on:
+  = @event.occurred_on
+%p
+  %b Client:
+  = @event.client
+
+= link_to 'Edit', edit_event_path(@event)
+\|
+= link_to 'Back', events_path

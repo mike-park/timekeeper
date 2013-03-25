@@ -1,0 +1,7 @@
+%h1 New bill
+
+- # force bill items to current unbilled items
+- @bill.bill_items = parent.unbilled_items
+- @bill.number ||= @bill.generate_number
+
+= render 'form'

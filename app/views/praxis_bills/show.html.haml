@@ -1,0 +1,19 @@
+.row-fluid
+  .span8
+    %table.table.table-bordered.table-praxis-bill
+      %caption Praxis Bill #{@praxis_bill.number}
+      %thead
+        %tr
+          %th Client
+          %th Date
+          %th Event
+          %th Therapist
+      %tbody
+        - @praxis_bill.events_by_clients.each_with_index do |events, i|
+          - zebra = i % 2 == 0 ? 'even' : ''
+          - events.each do |event|
+            %tr{class: zebra}
+              %td= event.client_full_name
+              %td= l event.occurred_on
+              %td= event.event_category_title
+              %td= event.therapist_full_name

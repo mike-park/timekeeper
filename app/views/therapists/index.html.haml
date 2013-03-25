@@ -1,0 +1,20 @@
+.row-fluid
+  .span8
+    %table.table
+      %caption Therapists
+      %tr
+        %th Name
+        %th Abbrv
+        %th
+        %th
+
+      - @therapists.each do |therapist|
+        %tr
+          %td= therapist.full_name
+          %td= therapist.abbrv
+          %td= edit_link(edit_therapist_path(therapist))
+          %td= destroy_link therapist_path(therapist)
+
+.row-fluid
+  .span
+    = new_link 'Add Therapist', new_therapist_path

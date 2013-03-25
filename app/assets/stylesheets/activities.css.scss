@@ -1,0 +1,11 @@
+.activity {
+  .action {
+    display: table-cell;
+    width: 2em;
+    vertical-align: middle;
+  }
+  .message {
+    display: table-cell;
+  }
+  margin-bottom: 1em;
+}

@@ -1,0 +1,30 @@
+%p
+  %b First name:
+  = @client.first_name
+%p
+  %b Last name:
+  = @client.last_name
+%p
+  %b Dob:
+  = l @client.dob if @client.dob
+
+- if @client.events.any?
+  %table.table
+    %caption Events
+    %thead
+      %tr
+        %th Date
+        %th Event
+        %th Therapist
+        %th Billed?
+        %th
+    %tbody
+      - @client.events.by_most_recent.each do |event|
+        %tr
+          %td= l event.occurred_on
+          %td= event.event_category_title
+          %td= event.therapist_full_name
+          %td= tick_if event.billed?
+          %td= destroy_link event unless event.billed?
+- else
+  %h5 No Events

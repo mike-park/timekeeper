@@ -1,0 +1,11 @@
+= simple_form_for(@praxis_bill, html: {class: 'form-horizontal'}) do |f|
+  = f.error_notification
+  .form-inputs
+    = datepicker_field(f, :billed_on)
+    = f.input :number
+    = f.input :note, input_html: {cols: 80, rows: 5}
+    = f.input :bill_ids, label: 'Therapist Bills Included:', as: :check_boxes, collection: (@praxis_bill.bills + Bill.unbilled).uniq
+
+  .form-actions
+    = f.button :submit, class: 'btn-primary'
+    = cancel_link praxis_bills_path

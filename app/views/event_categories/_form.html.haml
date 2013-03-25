@@ -1,0 +1,13 @@
+= simple_form_for(@event_category) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :active
+    = f.input :title
+    = f.input :abbrv
+    = f.input :sort_order, hint: '0 is first, 99 last'
+    = f.input :color, hint: 'Normal CSS color code. ie #ff0000'
+
+  .form-actions
+    = f.button :submit, class: 'btn-primary'
+    = cancel_link event_categories_path

@@ -1,0 +1,31 @@
+.row-fluid
+  .span9
+    %table.table
+      %caption Users
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th Created
+          %th Role
+          %th Therapist
+          %th
+          %th
+          %th
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.name
+            %td= user.email
+            %td= user.created_at.to_date.to_s(:de)
+            %td= user.roles.first.name.titleize unless user.roles.first.nil?
+            %td= user.therapist.try(:abbrv)
+            %td
+              %a.btn.btn-mini{"data-toggle" => "modal", :href => "#role-options-#{user.id}", :type => "button"} Change role
+              = render user
+            %td= edit_link(edit_user_path(user))
+            %td= destroy_link(user_path(user)) unless user == current_user
+
+.row-fluid
+  .span
+    = new_link 'Add User', new_user_path

@@ -1,0 +1,13 @@
+de:
+  bills:
+    no_events_selected: "Bill wurde nicht erstellt. Keine Ereignisse ausgewählt wurden."
+  praxis_bills:
+    no_unbilled_therapist_bills: "Keine noch nicht abgerechneten Therapeuten Rechnungen stehen zur Auswahl."
+    no_therapist_bills_selected: "Praxis Rechnung wurde nicht erstellt. Kein Therapeut Rechnung ausgewählt wurde."
+  home:
+    index:
+      new_bill: "Hinzufügen Praxis Rechnung."
+      list_bills: "Überprüfung der bestehenden Praxis Rechnungen."
+      new_event: "Hinzufügen, entfernen oder bearbeiten Kalendereinträge."
+      list_events: "Überprüfung der bestehenden Kalendereinträge."
+      welcome: "Willkommen bei IFF Timekeeper"

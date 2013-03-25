@@ -1,0 +1,20 @@
+.activity
+  .action
+    %i{class: icon}
+  .message
+    %small
+      %em.muted
+        Vor
+        = time_ago_in_words activity.created_at
+        von
+        = activity.owner.name
+    %br
+    = action
+    - p = activity.parameters
+    .label Bill
+    am
+    .label= l p[:billed_on]
+    für
+    .label= number_to_euro p[:total]
+    von
+    .label= p[:therapist_full_name]

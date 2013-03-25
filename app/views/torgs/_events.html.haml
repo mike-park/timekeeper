@@ -1,0 +1,12 @@
+%small
+  %table.table.table-condensed
+    %caption Erstellt am #{l @torg.created_at}
+    %thead
+      %tr
+        - Torg::CSV_FIELDS.each do |field|
+          %th= field
+    %tbody
+      - events.each do |event|
+        %tr
+          - event.each do |item|
+            %td= item

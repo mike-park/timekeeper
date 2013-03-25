@@ -1,0 +1,41 @@
+- bp = BillPresenter.new(bill)
+
+%h3
+  Abrechnung Fördereinheiten #{bill.therapist.full_name} #{bill.billed_on.to_s(:de)}
+
+%table.table.therapist-bill-clients.totals
+  %thead
+    %tr
+      %th Name
+      %th Geburts-datum
+      - bp.service_names.each do |name|
+        %th= name
+  %tbody
+    - bp.clients.each do |c|
+      %tr
+        %td= client_name c
+        %td= c.dob
+        - bp.service_abbrvs.each do |abbrv|
+          %td= c.services[abbrv].qty if c.services[abbrv]
+    %tr.qty
+      %td
+      %td Summe
+      - bp.service_abbrvs.each do |abbrv|
+        %td= bp.services[abbrv].qty if bp.services[abbrv]
+    %tr.price
+      %td
+      %td Preis
+      - bp.service_abbrvs.each do |abbrv|
+        %td= number_to_euro(bp.services[abbrv].price) if bp.services[abbrv]
+    %tr.total
+      %td
+      %td Teilsummen
+      - bp.service_abbrvs.each do |abbrv|
+        %td= number_to_euro(bp.services[abbrv].total) if bp.services[abbrv]
+    %tr.total
+      %td
+      %td Gesamt
+      %td= number_to_euro bill.total
+
+:javascript
+  print();

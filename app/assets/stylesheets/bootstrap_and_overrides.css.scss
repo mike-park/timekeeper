@@ -1,0 +1,172 @@
+$color_title:    #342d7e;
+$color_subtitle: darkslateblue;
+
+@import "bootstrap";
+body {
+  padding-top: 50px;
+  background: url(image_path('background.jpeg')) 0 0 repeat;
+  background-attachment: fixed;
+  font-family: "ProximaNova",Helvetica,Arial,"Lucida Grande",sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+}
+@import "bootstrap-responsive";
+
+.title {
+  border-bottom: 1px gray solid;
+  color: $color_title;
+  font: {
+    size: 17px;
+    weight: bold;
+  }
+  padding-bottom: 2px;
+  margin-bottom: 10px;
+}
+
+body {
+  //background: #e5e5e5;
+}
+
+pre.debug_dump {
+  /*background-color: #ffffff;*/
+}
+.debug_dump pre {
+  font-size: 10px;
+  padding: 0;
+  border: none;
+  display: inline;
+}
+
+.money {
+  text-align: right;
+}
+
+table caption {
+  color: $color_title;
+  border-bottom: 1px gray solid;
+  font: {
+    size: 17px;
+    weight: bold;
+  }
+  padding: 2px 0;
+  text-align: left;
+}
+
+.header-search {
+  input {
+    width: 120px;
+    padding: 5px 10px;
+  }
+}
+
+// reset form fields within a table
+table .input, table .clearfix {
+  width: auto;
+  margin: 0;
+}
+
+.print-button {
+  margin-left: 5px;
+}
+
+// copied from html5-boilerplate 31.01.2012
+@media print {
+  @import "print";
+}
+
+.table-bill-items {
+  form { margin: 0; }
+  td:first-child, th:first-child {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 20em;
+  }
+  td:nth-child(2), th:nth-child(2) {
+    text-align: center;
+    width: 6em;
+  }
+  td:nth-child(3), th:nth-child(3) {
+    width: 10em;
+  }
+}
+
+.table-new-bill-items {
+  .control-group {
+    margin: 0;
+  }
+}
+
+.unbilled_services, .therapist-bill-clients, .insurer-bill-clients {
+  // force each column as small as possible
+  //@include tableColumns(5);
+  td, th {
+    text-align: right;
+  }
+  td:first-child, th:first-child {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.insurer-bill-clients {
+  width: auto;
+  td, th {
+    width: 75px;
+  }
+  tr:first-child th { text-align: center; }
+}
+
+.totals {
+  .qty, .price, .total {
+    td {
+      font-weight: bold;
+      text-align: right;
+      border-top: none;
+    }
+  }
+  .qty {
+    border-top: 2px gray solid;
+  }
+}
+
+.therapist-bill-services {
+  //@include tableColumns(9);
+  td, th { text-align: right; }
+  td:first-child, th:first-child { text-align: left; }
+}
+
+.recent-bills {
+  //@include tableColumns(9);
+  td, th { text-align: right; }
+  td:first-child, th:first-child { text-align: left; }
+}
+
+.recent-bills-sidebar {
+  span:first-child { font-size: 120%; font-weight: bold; }
+  span:nth-child(2) { float: right; }
+}
+.vertical-zebra-striped {
+  tbody {
+    tr td:nth-child(even), tr th:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover td, tr:hover th {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+.btn-new {
+  margin: 1em 0 1em;
+}
+
+.all-box {
+  display: inline-block;
+  input {
+    margin-bottom: 4px;
+    margin-left: 5px;
+  }
+}
+

@@ -1,0 +1,43 @@
+!!!
+%html
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %title= content_for?(:title) ? yield(:title) : "Timekeeper"
+      %meta{:content => content_for?(:description) ? yield(:description) : "Timekeeper", :name => "description"}
+        = stylesheet_link_tag "application", :media => "all"
+        = javascript_include_tag "application"
+
+        -# spreadsheet
+        -#= stylesheet_link_tag "http://cdn.wijmo.com/spreadjs/gcfilter-ui.css", title: "metro-jqueryui"
+        -#= stylesheet_link_tag "http://cdn.wijmo.com/themes/wijmo/jquery.wijmo.wijsuperpanel.css"
+        -#= stylesheet_link_tag "http://cdn.wijmo.com/themes/cobalt/jquery-wijmo.css", title: "rocket-jqueryui"
+        -#= javascript_include_tag "http://cdn.wijmo.com/spreadjs/jquery.wijmo.wijspread.full.min.js"
+
+        -# all widgets
+        -#= stylesheet_link_tag "http://cdn.wijmo.com/themes/rocket/jquery-wijmo.css", title: "rocket-jqueryui"
+        -#= stylesheet_link_tag "http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.css"
+        -#= javascript_include_tag "http://cdn.wijmo.com/jquery.wijmo-open.all.2.3.5.min.js"
+        -#= javascript_include_tag "http://cdn.wijmo.com/jquery.wijmo-complete.all.2.3.5.min.js"
+        -#= javascript_include_tag "http://cdn.wijmo.com/external/cultures/globalize.culture.de-DE.js"
+
+        = csrf_meta_tags
+        = render 'layouts/analytics'
+        = yield(:head)
+  %body{:class => "#{controller_name} #{action_name}"}(ng-app='timekeeper')
+    %header.navbar.navbar-fixed-top
+      %nav.navbar-inner
+        .container
+          = render 'layouts/navigation'
+    #main{:role => "main"}
+      .container
+        .content
+          .row-fluid
+            .span12
+              = render 'layouts/messages'
+              %tk-spinner
+              %tk-in-progress
+              %tk-error
+              = yield
+          %footer
+      / ! end of .container
+    / ! end of #main

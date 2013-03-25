@@ -1,0 +1,5 @@
+Date::DATE_FORMATS[:month_and_year] = "%b %y"
+Date::DATE_FORMATS[:de] = "%d.%m.%y"
+Date::DATE_FORMATS[:long_de] = "%d.%m.%Y"
+Date::DATE_FORMATS[:bill] = "%Y-%m"
+Time::DATE_FORMATS[:de] = "%d.%m.%Y %H:%M:%S"

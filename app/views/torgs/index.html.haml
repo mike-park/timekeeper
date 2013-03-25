@@ -1,0 +1,20 @@
+.row-fluid
+  .span8
+    %table.table
+      %caption T-Org-Berichte
+      %tr
+        %th Zeitraum
+        %th erstellt
+        %th
+        %th
+        %th
+
+      - @torgs.each do |torg|
+        %tr
+          %td= link_to torg.title, torg
+          %td Vor #{time_ago_in_words torg.created_at}
+          %td= destroy_link(torg)
+
+.row-fluid
+  .span
+    = new_link 'Neues T-Org Bericht', new_torg_path

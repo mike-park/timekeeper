@@ -1,0 +1,24 @@
+.row-fluid
+  .span8
+    %table.table
+      %caption Bills
+      %tr
+        %th Billed on
+        %th Bill Number
+        %th Total
+        %th
+        %th
+        %th
+
+      - @bills.each do |bill|
+        %tr
+          %td= bill.billed_on.to_s(:de)
+          %td= bill.number
+          = td_money(bill.total)
+          %td= show_link([parent, bill])
+          %td= edit_link edit_therapist_bill_path(parent, bill)
+          %td= destroy_link([parent, bill])
+
+.row-fluid
+  .span
+    = new_link 'Add Bill', new_therapist_bill_path(parent)

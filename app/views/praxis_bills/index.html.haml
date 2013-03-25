@@ -1,0 +1,30 @@
+.row-fluid
+  .span8
+    %table.table
+      %caption Praxis Bills
+      %thead
+        %tr
+          %th Billed On
+          %th Bill Number
+          %th Note
+          %th Therapist Bills
+          %th
+          %th
+      %tbody
+        - @praxis_bills.each do |praxis_bill|
+          %tr
+            %td= l praxis_bill.billed_on
+            %td= link_to(praxis_bill.number || '<no number>', praxis_bill)
+            %td= praxis_bill.note
+            %td
+              - praxis_bill.bills.each do |bill|
+                - therapist = bill.therapist
+                - name = "#{therapist.abbrv} #{bill.number}"
+                = link_to name, therapist_bill_path(bill.therapist, bill)
+                %br
+            %td= edit_link edit_praxis_bill_path(praxis_bill)
+            %td= destroy_link praxis_bill
+
+.row-fluid
+  .span
+    = new_link 'Add Praxis Bill', new_praxis_bill_path

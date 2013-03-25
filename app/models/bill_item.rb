@@ -1,0 +1,55 @@
+class BillItem < ActiveRecord::Base
+  belongs_to :bill
+  belongs_to :client
+  belongs_to :event
+
+  before_save :assign_client
+  before_validation :assign_price
+  after_save :assign_bill, on: :create
+  before_destroy :unset_bill
+
+  delegate :occurred_on, :event_category, :therapist, to: :event
+  delegate :billed_on, to: :bill
+
+  validates_presence_of :event_id
+  validates_numericality_of :price, greater_than: 0
+
+  def self.from_events(events)
+    events.map {|event| new(event: event, client: event.client) }
+  end
+
+  def self.by_name
+    all.sort
+  end
+
+  def title
+    "#{occurred_on} #{event_category_title}"
+  end
+
+  def event_category_title
+    event.event_category.title
+  end
+
+  def <=>(other)
+    event <=> other.event
+  end
+
+  private
+
+  def assign_bill
+    event.update_attribute(:bill_id, bill.id)
+  end
+
+  def unset_bill
+    event.update_attribute(:bill_id, nil) if event
+  end
+
+  def assign_client
+    self.client_id = event.client_id
+  end
+
+  def assign_price
+    self.price = event.price
+  end
+
+end
