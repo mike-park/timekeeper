@@ -10,6 +10,6 @@ class HomeController < ApplicationController
     if therapist = current_user.therapist
       scope = scope.where(recipient_type: therapist.class, recipient_id: therapist.id)
     end
-    scope.limit(20)
+    scope.limit(100)
   end
 end
