@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   private
 
   def recent_activities
-    scope = PublicActivity::Activity.order('created_at desc')
+    scope = PublicActivity::Activity.includes(:owner).order('created_at desc')
     if therapist = current_user.therapist
       scope = scope.where(recipient_type: therapist.class, recipient_id: therapist.id)
     end
