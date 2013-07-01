@@ -76,8 +76,5 @@ module Timekeeper
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
-    # log to stdout under unicorn
-    config.logger = Logger.new(STDOUT)
   end
 end
