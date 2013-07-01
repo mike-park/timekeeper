@@ -1,0 +1,3 @@
+$("#<%= dom_id(@bill_item) %>").fadeOut();
+// <% @bill = @bill_item.bill %>
+$("#excluded").html("<%= j render('bills/excluded', bill_items: @bill_item.bill.therapist.unbilled_items(@bill_item.bill.billed_on)) %>");

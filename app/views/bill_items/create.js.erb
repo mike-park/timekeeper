@@ -1,0 +1,2 @@
+$("#<%= dom_id(@bill_item.event) %>").fadeOut();
+$("#included").html("<%= j render('bills/included', bill_items: @bill_item.bill.bill_items.by_name) %>");

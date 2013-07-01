@@ -14,4 +14,4 @@
             %td= client_name bi.client, length: 30
             %td= bi.occurred_on.to_s(:de)
             %td= bi.event_category_title
-            %td= link_to 'Remove', bi, method: :delete, class: 'btn btn-mini'
+            %td= link_to 'Remove', bi, method: :delete, class: 'btn btn-mini', remote: true
