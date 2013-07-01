@@ -41,7 +41,7 @@ group :development, :test do
   gem 'sqlite3'
   gem "rspec-rails", ">= 2.11.4"
   gem "factory_girl_rails", ">= 4.1.0"
-  gem 'dotenv-rails', '~> 0.7.0'
+  gem 'dotenv-rails', '~> 0.8.0'
 end
 
 
