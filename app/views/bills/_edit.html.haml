@@ -9,5 +9,5 @@
     = f.button :submit, class: 'btn-primary'
     = cancel_link(therapist_bills_path(parent))
 
-= render 'included', bill_items: @bill.bill_items
+= render 'included', bill_items: @bill.bill_items.by_name
 = render 'excluded', bill_items: parent.unbilled_items(@bill.billed_on)
