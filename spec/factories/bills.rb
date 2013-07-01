@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :bill do
     billed_on "2013-01-23"
-    therapist nil
+    therapist
     number "MyString"
   end
 end

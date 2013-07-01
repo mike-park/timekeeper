@@ -2,7 +2,9 @@
 
 FactoryGirl.define do
   factory :event_category_price do
-    price "9.99"
-    event_category nil
+    title 'As of now'
+    price 9.99
+    event_category
+    therapist_list ['sw']
   end
 end

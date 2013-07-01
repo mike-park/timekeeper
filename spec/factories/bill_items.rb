@@ -1,10 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :event do
-    therapist
+  factory :bill_item do
+    bill
     client
-    event_category
-    occurred_on "2013-01-19"
+    event
   end
 end

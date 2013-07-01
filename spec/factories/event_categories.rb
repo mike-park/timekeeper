@@ -2,8 +2,13 @@
 
 FactoryGirl.define do
   factory :event_category do
-    title "MyString"
-    abbrv "MyString"
-    sort_order 1
+    title "Einzel-therapie"
+    abbrv "ET"
+    sort_order 0
+    color '#099'
+    active true
+    after(:create) do |ec, evaluator|
+      FactoryGirl.create(:event_category_price, event_category: ec)
+    end
   end
 end

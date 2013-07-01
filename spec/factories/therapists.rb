@@ -2,8 +2,9 @@
 
 FactoryGirl.define do
   factory :therapist do
-    first_name "MyString"
-    last_name "MyString"
-    abbrv "MyString"
+    first_name "Sabine"
+    last_name "Wolff"
+    abbrv "SW"
+    category 'GO'
   end
 end
