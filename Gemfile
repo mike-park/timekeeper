@@ -19,8 +19,8 @@ gem 'angular-ui-bootstrap-rails', '~> 0.1.1'
 gem "fullcalendar-rails", "~> 1.5.4.0"
 gem 'select2-rails', '~> 3.2.0'
 gem 'inherited_resources', '~> 1.3.1'
-gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
-gem 'restful_json', '>= 3.0.0.alpha.27', :git => 'git://github.com/FineLinePrototyping/restful_json.git'
+gem 'strong_parameters', '~> 0.2.1'
+gem "active_model_serializers", '~> 0.8.1'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'newrelic_rpm', '~> 3.5.5.38'
 gem 'awesome_print'

@@ -1,8 +1,7 @@
 # https://github.com/josevalim/inherited_resources/issues/236#issuecomment-11652170
 
-# this is done by restful_json
 # Add Strong Attributes support to all models (Remove in Rails4)
-#ActiveRecord::Base.send(:include, ActiveModel::ForbiddenAttributesProtection)
+ActiveRecord::Base.send(:include, ActiveModel::ForbiddenAttributesProtection)
 
 # MonkeyPatch Inherited Resources to support strong parameters
 module InheritedResources
