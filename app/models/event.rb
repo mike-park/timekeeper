@@ -1,12 +1,11 @@
 class Event < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller.try(:current_user) },
-          recipient: ->(controller, model) { model.therapist },
+          recipient: ->(controller, model) { model.client },
           params: {
-            therapist_full_name: :therapist_full_name,
-            event_category_title: :event_category_title,
-            client_full_name: :client_full_name,
-            occurred_on: :occurred_on
+              note: :title,
+              who: :therapist_abbrv,
+              client_full_name: :client_full_name,
           },
           except: :update
 
@@ -24,11 +23,15 @@ class Event < ActiveRecord::Base
   scope :by_oldest, -> { order('occurred_on asc') }
   scope :by_name, -> { includes(:client).order('clients.last_name, clients.first_name, occurred_on asc') }
   scope :from_bill, ->(bill) { where(bill_id: bill.id) }
-  scope :occurred_between, ->(range) { where(occurred_on: range)}
+  scope :occurred_between, ->(range) { where(occurred_on: range) }
 
   delegate :title, to: :event_category, prefix: true
-  delegate :full_name, to: :therapist, prefix: true
+  delegate :abbrv, to: :therapist, prefix: true
   delegate :full_name, to: :client, prefix: true
+
+  def title
+    "#{event_category.title} #{occurred_on.to_s(:de)}"
+  end
 
   def <=>(other)
     client <=> other.client

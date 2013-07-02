@@ -6,10 +6,6 @@ class HomeController < ApplicationController
   private
 
   def recent_activities
-    scope = PublicActivity::Activity.includes(:owner).order('created_at desc')
-    if therapist = current_user.therapist
-      scope = scope.where(recipient_type: therapist.class, recipient_id: therapist.id)
-    end
-    scope.limit(100)
+    PublicActivity::Activity.where(owner_type: current_user.class, owner_id: current_user.id).order('created_at desc').limit(100)
   end
 end

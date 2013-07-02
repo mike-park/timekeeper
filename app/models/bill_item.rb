@@ -1,4 +1,13 @@
 class BillItem < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller.try(:current_user) },
+          recipient: ->(controller, model) { model.client },
+          params: {
+              note: :title,
+              who: :therapist_abbrv,
+              client_full_name: :client_full_name,
+          }
+
   belongs_to :bill
   belongs_to :client
   belongs_to :event
@@ -10,6 +19,8 @@ class BillItem < ActiveRecord::Base
 
   delegate :occurred_on, :event_category, :therapist, to: :event
   delegate :billed_on, to: :bill
+  delegate :abbrv, to: :therapist, prefix: true
+  delegate :full_name, to: :client, prefix: true
 
   validates_presence_of :event_id
   validates_numericality_of :price, greater_than: 0
@@ -23,7 +34,7 @@ class BillItem < ActiveRecord::Base
   end
 
   def title
-    "#{occurred_on} #{event_category_title}"
+    "#{bill.title}: #{event.title}"
   end
 
   def event_category_title

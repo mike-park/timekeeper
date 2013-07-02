@@ -1,0 +1,15 @@
+%tr
+  - p = activity.parameters
+  %td
+    = time_ago_in_words activity.created_at
+  %td
+    = p[:who] || p[:therapist_full_name]
+  %td
+    = p[:client_full_name]
+  %td
+    %i{class: icon}
+  %td
+    - msg = p[:note]
+    - msg ||= "#{p[:event_category_title]} #{l p[:occurred_on]}" if p[:occurred_on]
+    - msg ||= "Bill #{l p[:billed_on]}" if p[:billed_on]
+    = msg || p[:event_category_title]

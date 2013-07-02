@@ -26,5 +26,4 @@
 
 - if @activities.any?
   %h5 Recent activities
-- @activities.each do |activity|
-  = render_activity(activity)
+  = render 'notifications/notifications', notifications: @activities

@@ -1,13 +1,11 @@
 class Bill < ActiveRecord::Base
   include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller.current_user },
+  tracked owner: ->(controller, model) { controller.try(:current_user) },
           recipient: ->(controller, model) { model.therapist },
           params: {
-              therapist_full_name: :therapist_full_name,
-              billed_on: :billed_on,
-              total: :total
-          },
-          except: :update
+              note: :title,
+              who: :therapist_abbrv
+          }
 
   belongs_to :praxis_bill
   belongs_to :therapist
@@ -33,6 +31,6 @@ class Bill < ActiveRecord::Base
   end
 
   def title
-    [billed_on.to_s(:de), number, therapist.full_name].reject(&:blank?).join(" / ")
+    "Bill #{number}"
   end
 end

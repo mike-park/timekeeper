@@ -1,0 +1,11 @@
+%table.table
+  %thead
+    %tr
+      %th When
+      %th Therapist
+      %th Client
+      %th Action
+      %th Note
+  %tbody
+    - notifications.each do |notification|
+      = render_activity(notification)
