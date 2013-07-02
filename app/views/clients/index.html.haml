@@ -27,23 +27,21 @@
         %b Geb.
         %span(tk-date-format='client.dob' format='L')
 
-    %h3(ng-hide='client.events.length')
+    %h3(ng-hide='client.notifications.length')
       No Events
 
-    %table.table(ng-show='client.events.length')
-      %caption Events
+    %table.table(ng-show='client.notifications.length')
+      %caption Notifications
       %thead
         %tr
           %th Date
-          %th Event
-          %th Therapist
+          %th Who
           %th Action
+          %th Note
       %tbody
-        %tr(ng-repeat="event in client.events | orderBy:'-start'")
-          %td(tk-date-format='event.start' format='L')
-          %td {{event.eventCategoryName}}
-          %td {{event.therapistName}}
+        %tr(ng-repeat="event in client.notifications | orderBy:'-occurredOn'")
+          %td(tk-date-format='event.occurredOn' format='L')
+          %td {{event.who}}
           %td
-            %a(href='{{event.billUrl}}' ng-show='event.billUrl') View Bill
-            %a(href='#' tk-confirm='deleteEvent(event)' title='Delete {{event.eventCategoryName}} of {{event.therapistName}}')
-              %i.icon-trash(ng-show='event.editable')
+            %i(class="{{event.icon}}")
+          %td {{event.note}}

@@ -1,4 +1,13 @@
 class Client < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller.try(:current_user) },
+          recipient: ->(controller, model) { model },
+          params: {
+              note: :title,
+              client_full_name: :full_name,
+              who: ->(controller, mode) { controller.try(:current_user).try(:name) }
+          }
+
   acts_as_taggable_on :therapists
 
   has_many :events
@@ -15,6 +24,10 @@ class Client < ActiveRecord::Base
   scope :find_clients_without_dob, lambda {|attrs|
     where("LOWER(first_name)=LOWER(?) AND LOWER(last_name)=LOWER(?)", attrs[:first_name], attrs[:last_name])}
   default_scope order('last_name, first_name asc')
+
+  def title
+    "#{full_name} #{dob.to_s(:de)}"
+  end
 
   def most_recent_event
     @most_recent ||= events.by_most_recent.first
