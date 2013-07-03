@@ -19,6 +19,7 @@
 //= require angular
 //= require angular-ui
 //= require angular-ui-bootstrap-tpls
+//= require angular-ng-grid-rails
 //= require angularjs/rails/resource
 //= require moment
 //= require moment/de

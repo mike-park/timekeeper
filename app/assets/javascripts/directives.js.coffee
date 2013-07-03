@@ -342,7 +342,7 @@ directives.directive 'tkDateFromNow', ->
   factory =
     restrict: 'A'
     link: (scope, elm, $attrs) ->
-      scope.$watch $attrs.tkDateFromNow, (date) ->
+      $attrs.$observe 'tkDateFromNow', (date) ->
         text = moment(date).fromNow() if date?
         elm.text(text)
 
@@ -350,7 +350,7 @@ directives.directive 'tkDateFormat', ->
   factory =
     restrict: 'A'
     link: (scope, elm, $attrs) ->
-      scope.$watch $attrs.tkDateFormat, (date) ->
+      $attrs.$observe 'tkDateFormat', (date) ->
         text = moment(date).format($attrs.format) if date?
         elm.text(text)
 

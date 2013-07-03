@@ -1,5 +1,5 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :occurred_on, :note, :who, :icon
+  attributes :occurred_on, :note, :who, :icon, :client_full_name
 
   def occurred_on
     object.created_at
@@ -15,6 +15,10 @@ class NotificationSerializer < ActiveModel::Serializer
 
   def who
     object.parameters[:who] || object.parameters[:therapist_full_name]
+  end
+
+  def client_full_name
+    object.parameters[:client_full_name]
   end
 
   def icon

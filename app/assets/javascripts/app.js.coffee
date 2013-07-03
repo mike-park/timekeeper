@@ -4,7 +4,7 @@
 #= require directives
 #= require templates
 
-timekeeper = angular.module('timekeeper', ['timekeeper.controllers', 'timekeeper.directives'])
+timekeeper = angular.module('timekeeper', ['timekeeper.controllers', 'timekeeper.directives', 'ngGrid'])
 timekeeper.value 'ui.config',
   jq:
     tooltip:

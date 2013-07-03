@@ -38,6 +38,7 @@ GEM
     airbrake (3.1.6)
       builder
       girl_friday
+    angular-ng-grid-rails (2.0.7.1)
     angular-ui-bootstrap-rails (0.1.1)
     angular-ui-rails (0.3.2)
     angularjs-rails (1.0.3)
@@ -262,6 +263,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.8.1)
   acts-as-taggable-on (~> 2.3.1)
   airbrake (= 3.1.6)
+  angular-ng-grid-rails (~> 2.0.7)
   angular-ui-bootstrap-rails (~> 0.1.1)
   angular-ui-rails (~> 0.3.2)
   angularjs-rails (~> 1.0.3)

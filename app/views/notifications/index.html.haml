@@ -1,1 +1,2 @@
-= render 'notifications', notifications: @notifications
+%div(ng-controller='listNotificationsCtrl')
+  .notifications(ng-grid="ngGridOptions")

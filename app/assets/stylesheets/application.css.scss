@@ -13,6 +13,7 @@
  *= require fullcalendar
  *= require select2
  *= require angular-ui
+ *= require angular-ng-grid-rails
  *= require bootstrap_and_overrides
  *= require directives
  *= require events
@@ -23,6 +24,7 @@
  *= require spinner
  *= require differ
  *= require bills
+ *= require notifications
 */
 
 .content {

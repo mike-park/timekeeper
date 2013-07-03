@@ -19,6 +19,7 @@ Timekeeper::Application.routes.draw do
     resources :events
     resources :clients
     resources :users
+    resources :notifications, only: [:index]
   end
 
   authenticated :user do
