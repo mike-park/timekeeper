@@ -34,6 +34,7 @@ gem 'airbrake', '= 3.1.6'
 gem 'momentjs-rails', '~> 1.7.2'
 gem 'public_activity', '~> 1.0.2'
 gem 'prawn', '~> 0.12.0'
+gem 'twilio-ruby', '~> 3.9.0'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
