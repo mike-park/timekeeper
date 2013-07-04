@@ -25,3 +25,5 @@
 //= require moment/de
 //= require app
 //= require collapse
+//= require d3
+//= require dangle

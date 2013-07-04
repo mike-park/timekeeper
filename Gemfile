@@ -19,6 +19,7 @@ gem "angularjs-rails-resource", '~> 0.0.2'
 gem 'angular-ui-rails', '~> 0.3.2'
 gem 'angular-ui-bootstrap-rails', '~> 0.1.1'
 gem 'angular-ng-grid-rails', '~> 2.0.7.2'
+gem 'd3_rails'
 gem "fullcalendar-rails", "~> 1.5.4.0"
 gem 'select2-rails', '~> 3.2.0'
 gem 'inherited_resources', '~> 1.3.1'
