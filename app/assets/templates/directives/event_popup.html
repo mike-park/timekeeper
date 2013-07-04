@@ -10,11 +10,11 @@
         <p>
         <div>
           <span class="key">Last Change: </span>
-          <span tk-date-from-now='event.updatedAt'></span>
+          <span tk-date-from-now='{{event.updatedAt}}'></span>
         </div>
         <div ng-show='event.billedOn'>
           <span class="key">Billed On: </span>
-          <span tk-date-format='event.billedOn' format='LL'></span>
+          <span tk-date-format='{{event.billedOn}}' format='LL'></span>
         </div>
         </p>
       </small>

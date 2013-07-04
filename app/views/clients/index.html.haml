@@ -25,7 +25,7 @@
           NOT ACTIVE
       .span4
         %b Geb.
-        %span(tk-date-format='client.dob' format='L')
+        %span(tk-date-format='{{client.dob}}' format='L')
 
     %h3(ng-hide='client.notifications.length')
       No Events
@@ -40,7 +40,7 @@
           %th Note
       %tbody
         %tr(ng-repeat="event in client.notifications | orderBy:'-occurredOn'")
-          %td(tk-date-format='event.occurredOn' format='L')
+          %td(tk-date-format='{{event.occurredOn}}' format='L')
           %td {{event.who}}
           %td
             %i(class="{{event.icon}}")

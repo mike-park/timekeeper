@@ -343,7 +343,7 @@ directives.directive 'tkDateFromNow', ->
     restrict: 'A'
     link: (scope, elm, $attrs) ->
       $attrs.$observe 'tkDateFromNow', (date) ->
-        text = moment(date).fromNow() if date?
+        text = moment(date).fromNow() if date && date != ""
         elm.text(text)
 
 directives.directive 'tkDateFormat', ->
@@ -351,7 +351,7 @@ directives.directive 'tkDateFormat', ->
     restrict: 'A'
     link: (scope, elm, $attrs) ->
       $attrs.$observe 'tkDateFormat', (date) ->
-        text = moment(date).format($attrs.format) if date?
+        text = moment(date).format($attrs.format) if date && date != ""
         elm.text(text)
 
 # display a dialog message box asking for confirmation. if OK clicked the tk-confirm expression is evaluated
