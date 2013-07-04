@@ -22,6 +22,10 @@ class Bill < ActiveRecord::Base
   delegate :full_name, to: :therapist, prefix: true
   delegate :abbrv, to: :therapist, prefix: true, allow_nil: true
 
+  def self.last_bill_by(therapist)
+    where(therapist_id: therapist).order('billed_on desc').first
+  end
+
   def generate_number
     [therapist_abbrv, Date.current.to_s(:bill)].compact.join('-')
   end

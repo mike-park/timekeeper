@@ -20,6 +20,7 @@ Timekeeper::Application.routes.draw do
     resources :clients
     resources :users
     resources :notifications, only: [:index]
+    resources :missing_signatures, only: [:index]
   end
 
   authenticated :user do

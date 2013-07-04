@@ -2,28 +2,24 @@
   = t('.welcome', default: 'Welcome to IFF Timekeeper')
   = current_user.name
 
-.row-fluid
-  .span12
-    - if current_user.has_role? :admin
-      .action
-        .btn.btn-large
-          %i(class='icon-edit')
-          = link_to(t('.new_bill', default: 'New praxis bill'), new_praxis_bill_path)
-      .action
-        .btn.btn-large
-          %i(class='icon-zoom-in')
-          = link_to(t('.list_bills', default: 'Review existing praxis bills'), praxis_bills_path)
+- if current_user.therapist
+  .row-fluid
+    .action.span6
+      .btn.btn-large
+        %i(class='icon-edit')
+        = link_to(t('.new_event', default: 'Add, remove or edit calendar events'), new_event_path)
+    .action.span6
+      .btn.btn-large
+        %i(class='icon-zoom-in')
+        = link_to(t('.list_events', default: 'Review existing calendar events'), events_path)
 
-    - if current_user.therapist
-      .action
-        .btn.btn-large
-          %i(class='icon-edit')
-          = link_to(t('.new_event', default: 'Add, remove or edit calendar events'), new_event_path)
-      .action
-        .btn.btn-large
-          %i(class='icon-zoom-in')
-          = link_to(t('.list_events', default: 'Review existing calendar events'), events_path)
+.row-fluid(ng-controller='missingSignaturesCtrl' ng-show='missingSignatures')
+  .span12
+    %h4 Missing Signatures
+    .missing-signatures(ng-grid="ngGridOptions")
 
 - if @activities.any?
-  %h5 Recent activities
-  = render 'notifications/notifications', notifications: @activities
+  .row-fluid
+    .span12
+      %h4 Recent activities
+      = render 'notifications/notifications', notifications: @activities
