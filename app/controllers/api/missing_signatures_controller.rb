@@ -8,8 +8,6 @@ class Api::MissingSignaturesController < ApplicationController
   private
 
   def collection
-    therapist = current_user.therapist
-    last_bill = Bill.last_bill_by(therapist)
-    MissingSignature.find(therapist, last_bill.billed_on)
+    @missing_signatures ||= MissingSignatureService.new(current_user.therapist).events
   end
 end
