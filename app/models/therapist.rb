@@ -2,7 +2,7 @@ class Therapist < ActiveRecord::Base
   has_many :events, dependent: :destroy
   has_many :bills, dependent: :destroy
 
-  store :options, accessors: [:bank, :blz, :konto_nr]
+  store :options, accessors: [:bank, :blz, :konto_nr, :phone, :send_reminders]
 
   before_validation :assign_full_name
 
