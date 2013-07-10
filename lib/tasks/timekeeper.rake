@@ -15,4 +15,13 @@ namespace :timekeeper do
     task all: ['db:seed',:clients] do
     end
   end
+
+  namespace :reminders do
+    desc 'Send SMS reminders for missing signatures'
+    task sms: :environment do
+      Therapist.all.each do |therapist|
+        MissingSignatureService.new(therapist).sms_reminder
+      end
+    end
+  end
 end
