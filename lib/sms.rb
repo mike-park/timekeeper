@@ -7,8 +7,8 @@ class Sms
   end
 
   def send
-    result = client.account.sms.messages.create(from: from, to: to, body: message)
-    ap result
+    puts "SMS to #{to}: #{message}"
+    client.account.sms.messages.create(from: from, to: to, body: message)
   end
 
   private
