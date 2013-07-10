@@ -21,6 +21,10 @@ class Therapist < ActiveRecord::Base
     BillItem.from_events(unbilled_events)
   end
 
+  def send_reminders?
+    send_reminders.to_s == 'true' && phone.present?
+  end
+
   private
 
   def assign_full_name

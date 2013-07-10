@@ -26,7 +26,7 @@ class MissingSignatureService
   end
 
   def sms_reminders?
-    therapist.phone && therapist.send_reminders
+    therapist.send_reminders?
   end
 
   def before_date

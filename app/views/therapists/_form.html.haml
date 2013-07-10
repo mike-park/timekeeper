@@ -9,6 +9,8 @@
     = f.input :bank
     = f.input :blz
     = f.input :konto_nr
+    = f.input :phone, label: 'Handy Nummer'
+    = f.input :send_reminders, as: :radio, label: 'Send SMS Signature Reminders'
 
   .form-actions
     = f.button :submit, class: 'btn-primary'

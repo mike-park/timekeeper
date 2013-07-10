@@ -15,6 +15,7 @@ class TherapistsController < InheritedResources::Base
   private
 
   def resource_params
-    params.require(:therapist).permit(:first_name, :last_name, :abbrv, :category, :bank, :blz, :konto_nr)
+    params.require(:therapist).permit(:first_name, :last_name, :abbrv, :category, :bank, :blz, :konto_nr,
+                                      :phone, :send_reminders)
   end
 end
