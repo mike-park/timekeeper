@@ -58,6 +58,9 @@ class MissingSignatureService
     private
 
     def create_smses(header, lines)
+      lines = lines.find_all(&:present?)
+      return [] unless lines.any?
+
       smses = []
       sms = header
       lines.each do |line|

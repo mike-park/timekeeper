@@ -39,6 +39,14 @@ describe MissingSignatureService do
           expect(smses.first).to match(/bob/)
         end
       end
+
+      context "tomorrow" do
+        let(:today) { Date.tomorrow.wday }
+        it "should not send a message" do
+          smses = reminder.smses
+          expect(smses.length).to eq(0)
+        end
+      end
     end
   end
 end
