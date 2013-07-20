@@ -35,6 +35,8 @@ gem 'momentjs-rails', '~> 1.7.2'
 gem 'public_activity', '~> 1.0.2'
 gem 'prawn', '~> 0.12.0'
 gem 'twilio-ruby', '~> 3.9.0'
+gem 'dalli', '~> 2.6.4'
+gem 'memcachier', '~> 0.0.2'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
