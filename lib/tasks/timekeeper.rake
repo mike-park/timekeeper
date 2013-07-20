@@ -20,7 +20,7 @@ namespace :timekeeper do
     desc 'Send SMS reminders for missing signatures'
     task sms: :environment do
       Therapist.all.each do |therapist|
-        MissingSignatureService.new(therapist).sms_reminder
+        MissingSignatureService.new(therapist).send_smses
       end
     end
   end
