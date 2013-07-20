@@ -13,10 +13,21 @@
         %i(class='icon-zoom-in')
         = link_to(t('.list_events', default: 'Review existing calendar events'), events_path)
 
-.row-fluid(ng-controller='missingSignaturesCtrl' ng-show='missingSignatures')
-  .span12
-    %h4 Missing Signatures
-    .missing-signatures(ng-grid="ngGridOptions")
+- week_reminders = signature_week_reminders(current_user.therapist)
+- if week_reminders.any?
+  .row-fluid
+    .span12
+      %table.table
+        %caption Missing signature reminders for the coming week
+        %thead
+          %tr
+            %th Day
+            %th Count
+            %th Name
+            %th Missing Sig. Dates
+        %tbody
+          - week_reminders.each do |day_reminder|
+            = render 'therapists/reminders', date: day_reminder.first, reminders: day_reminder.last
 
 - if @activities.any?
   .row-fluid

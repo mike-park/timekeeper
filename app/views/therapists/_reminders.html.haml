@@ -1,0 +1,8 @@
+- if reminders.any?
+  - reminders.keys.each_with_index do |client, index|
+    - dates = reminders[client]
+    %tr
+      %td= date.strftime("%A") if index == 0
+      %td= dates.length
+      %td= client
+      %td= dates.map { |date| date.strftime("%d.%m")}.join(", ")
