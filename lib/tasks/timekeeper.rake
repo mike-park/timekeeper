@@ -24,4 +24,14 @@ namespace :timekeeper do
       end
     end
   end
+
+  namespace :activities do
+    desc 'Remove old activities'
+    task remove: :environment do
+      before = Date.strptime(ENV['before']) if ENV['before'].present?
+      before ||= Date.current - 4.months
+      deleted = PublicActivity::Activity.where('updated_at < ?', before).delete_all
+      puts "Removed #{deleted} activities"
+    end
+  end
 end
