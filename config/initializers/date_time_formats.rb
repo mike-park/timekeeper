@@ -10,7 +10,12 @@ class Date
   class << self
     def _parse_with_de_format(date, *args)
       if date =~ %r{(\d+)\.(\d+)\.(\d+)}
-        year = $3.length == 2 ? "20#{$3}" : $3
+        year = $3.to_i
+        # pick the correct century. code matches jquery-ui version
+        if year < 100
+          short_year_cutoff = (Date.current.year % 100) + 10
+          year += Date.current.year - (Date.current.year % 100) + (year <= short_year_cutoff ? 0 : -100)
+        end
         _parse_without_de_format("#{year}-#{$2}-#{$1}", *args)
       else
         _parse_without_de_format(date, *args)
