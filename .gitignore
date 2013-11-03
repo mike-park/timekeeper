@@ -75,3 +75,4 @@ pickle-email-*.html
 
 # Ignore application configuration
 .env
+.ruby-env
