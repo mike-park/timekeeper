@@ -41,9 +41,6 @@ gem 'memcachier', '~> 0.0.2'
 # lodash js library
 gem 'lodash-rails', '~> 2.3.0'
 
-# bower support for js packages
-gem 'bower-rails', '~> 0.5.0'
-
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
