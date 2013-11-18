@@ -1,3 +1,42 @@
+%div(ng-controller='newBillCtrl')
+  %h2
+    {{current.client}}
+
+  %form
+    %label Billed On
+    %input(name='billedOn' ng-model='bill.billedOn' class='date-picker' required)
+    %label Number
+    %input(name='number' ng-model='bill.number' required)
+
+  %button(ng-click="markAll(true)") Include All
+  %button(ng-click="markAll(false)") Exclude All
+  %button(ng-click="billItem.editing=true") Add Event
+
+  %form(name='billItemForm' ng-submit="saveBillItem()" ng-show="billItem.editing" )
+    .row
+      %label When
+      %input(name='occurredOn' ng-model='billItem.occurredOn' class='date-picker' required)
+    .row
+      %input.span4(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' required)
+    .row
+      %input.span4(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' required)
+    .row
+      %input(type="submit")
+      %button(ng-click="resetBillItem()") Cancel
+    .row
+      {{billItem}}
+
+
+  %ol
+    %li(ng-repeat="clientId in clientOrder")
+      %span(ng-bind="clientHash[clientId].text")
+      %div(ng-repeat='billItem in billItemsByClient[clientId]' ng-dblclick="editBillItem(billItem)" )
+        %span
+          %input(type='checkbox' ng-model='billItem.included')
+        %span(ng-bind="billItem.occurredOn")
+        %span(style="background-color: {{eventCategoryHash[billItem.eventCategoryId].color}}" ng-bind="eventCategoryHash[billItem.eventCategoryId].text")
+
+
 %h1 New bill
 
 - # force bill items to current unbilled items

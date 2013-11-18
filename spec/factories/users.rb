@@ -8,5 +8,8 @@ FactoryGirl.define do
     password_confirmation 'pleaseplease'
     # required if the Devise Confirmable module is used
     # confirmed_at Time.now
+    factory :user_with_therapist do
+      therapist
+    end
   end
 end

@@ -16,6 +16,7 @@ Timekeeper::Application.routes.draw do
   resources :torgs
 
   namespace :api do
+    resources :bills
     resources :events
     resources :clients
     resources :users

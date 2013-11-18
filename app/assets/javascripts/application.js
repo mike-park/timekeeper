@@ -27,3 +27,4 @@
 //= require collapse
 //= require d3
 //= require dangle
+//= require lodash
