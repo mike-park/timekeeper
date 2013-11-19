@@ -108,7 +108,12 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       $scope.billItemsByEventId ||= {}
 
       for key in bill.billItems
-        key.included = $scope.billItemsByEventId[key.eventId].included if $scope.billItemsByEventId[key.eventId]
+        # carry over previous state of included or preset to true
+        key.included = if $scope.billItemsByEventId[key.eventId]
+          $scope.billItemsByEventId[key.eventId].included
+        else
+          true
+        key.category = $scope.eventCategoryHash[key.eventCategoryId]
         billItemsByEventId[key.eventId] = key
         clientOrder.push(key.clientId) unless billItemsByClient[key.clientId]
         billItemsByClient[key.clientId] ||= []

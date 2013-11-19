@@ -42,13 +42,23 @@
   %ol
     %li(ng-repeat="clientId in clientOrder")
       %h3(ng-bind="clientHash[clientId].text" ng-dblclick="editBillItem({clientId: clientId})" )
-      .row(ng-repeat='billItem in billItemsByClient[clientId]' ng-dblclick="editBillItem(billItem)" )
-        %span.span1
-          %input(type='checkbox' ng-model='billItem.included')
-        %span.span2(tk-date-format="{{billItem.occurredOn}}" format='DD.MM' ng-animate="true" )
-        %span.span3(ng-hide="billItem.included")
-        %span.span3(style="background-color: {{eventCategoryHash[billItem.eventCategoryId].color}}" ng-bind="eventCategoryHash[billItem.eventCategoryId].text" ng-animate="true" )
-
+      .row
+        .span6
+          %small
+            %em.span12.text-center Include
+          .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}')
+            .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=false")
+              %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
+              {{billItem.category.text}}
+            %span(ng-click="editBillItem(billItem)" ) Edit
+        .span6
+          %small
+            %em.span12.text-center Exclude
+          .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}')
+            .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=true")
+              %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
+              {{billItem.category.text}}
+            %span(ng-click="editBillItem(billItem)" ) Edit
 
 %h1 New bill
 
