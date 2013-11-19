@@ -10,6 +10,6 @@ class BillItemSerializer < ActiveModel::Serializer
   end
 
   def occurred_on
-    object.event.occurred_on.to_s(:long_de)
+    object.event.occurred_on
   end
 end

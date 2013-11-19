@@ -15,11 +15,11 @@
   %form(name='billItemForm' ng-submit="saveBillItem()" ng-show="billItem.editing" )
     .row
       %label When
-      %input(name='occurredOn' ng-model='billItem.occurredOn' class='date-picker' required)
+      %input(type="text" datepicker-popup="dd.MM.yyyy" ng-model="billItem.occurredOn" is-open="opened" datepicker-options="{'starting-day': 1, 'show-weeks': false}" ng-required="true")
     .row
-      %input.span4(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' required)
+      %input.span4(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
     .row
-      %input.span4(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' required)
+      %input.span4(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
     .row
       %input(type="submit")
       %button(ng-click="resetBillItem()") Cancel
@@ -33,7 +33,7 @@
       %div(ng-repeat='billItem in billItemsByClient[clientId]' ng-dblclick="editBillItem(billItem)" )
         %span
           %input(type='checkbox' ng-model='billItem.included')
-        %span(ng-bind="billItem.occurredOn")
+        %span(tk-date-format="{{billItem.occurredOn}}" format='L')
         %span(style="background-color: {{eventCategoryHash[billItem.eventCategoryId].color}}" ng-bind="eventCategoryHash[billItem.eventCategoryId].text")
 
 
