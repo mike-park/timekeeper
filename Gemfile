@@ -6,7 +6,7 @@ gem 'rails', '3.2.12'
 gem 'unicorn', "~> 4.5.0"
 gem 'jquery-rails'
 gem "haml", ">= 3.1.7"
-gem "bootstrap-sass", ">= 2.2.2.0"
+gem "bootstrap-sass", "~> 2.3.2.0"
 gem "sendgrid", ">= 1.0.1"
 gem "devise", ">= 2.1.3"
 gem "cancan", ">= 1.6.8"
