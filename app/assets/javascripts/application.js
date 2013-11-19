@@ -17,6 +17,8 @@
 //= require select2
 //= require bootstrap
 //= require angular
+//= require angular-animate
+//= require angular-touch
 //= require angular-ui
 //= require angular-ui-bootstrap-tpls
 //= require angular-ng-grid-rails
