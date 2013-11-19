@@ -6,7 +6,6 @@ gem 'rails', '3.2.12'
 gem 'unicorn', "~> 4.5.0"
 gem 'jquery-rails'
 gem "haml", ">= 3.1.7"
-gem "bootstrap-sass", "~> 2.3.2.0"
 gem "sendgrid", ">= 1.0.1"
 gem "devise", ">= 2.1.3"
 gem "cancan", ">= 1.6.8"
@@ -17,7 +16,11 @@ gem "jquery-ui-rails", "~> 3.0.1"
 gem 'angularjs-rails', '~> 1.2.1'
 gem "angularjs-rails-resource", '~> 0.2.4'
 gem 'angular-ui-rails', '~> 0.3.2'
-gem 'angular-ui-bootstrap-rails', '~> 0.6.0'
+
+# bootstrap3
+gem "bootstrap-sass", "~> 3.0.2.0"
+gem 'angular-ui-bootstrap-rails', github: 'mike-park/angular-ui-bootstrap-rails', branch: 'bootstrap3'
+
 gem 'angular-ng-grid-rails', '~> 2.0.7.2'
 gem 'd3_rails'
 gem "fullcalendar-rails", "~> 1.5.4.0"

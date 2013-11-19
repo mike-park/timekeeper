@@ -15,7 +15,6 @@
 //= require jquery-ui
 //= require fullcalendar
 //= require select2
-//= require bootstrap
 //= require angular
 //= require angular-animate
 //= require angular-touch
