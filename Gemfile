@@ -14,10 +14,10 @@ gem "rolify", ">= 3.2.0"
 gem "simple_form", ">= 2.0.4"
 
 gem "jquery-ui-rails", "~> 3.0.1"
-gem 'angularjs-rails', '~> 1.0.3'
-gem "angularjs-rails-resource", '~> 0.0.2'
+gem 'angularjs-rails', '~> 1.2.1'
+gem "angularjs-rails-resource", '~> 0.2.4'
 gem 'angular-ui-rails', '~> 0.3.2'
-gem 'angular-ui-bootstrap-rails', '~> 0.1.1'
+gem 'angular-ui-bootstrap-rails', '~> 0.6.0'
 gem 'angular-ng-grid-rails', '~> 2.0.7.2'
 gem 'd3_rails'
 gem "fullcalendar-rails", "~> 1.5.4.0"
