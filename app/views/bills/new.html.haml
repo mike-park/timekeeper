@@ -2,39 +2,52 @@
   %h2
     {{current.client}}
 
-  %form
+  %form.form-inline
     %label Billed On
-    %input(name='billedOn' ng-model='bill.billedOn' class='date-picker' required)
+    %input.span2(name='billedOn' ng-model='bill.billedOn' ng-required='true')
     %label Number
-    %input(name='number' ng-model='bill.number' required)
+    %input.span2(name='number' ng-model='bill.number' ng-required='true')
 
-  %button(ng-click="markAll(true)") Include All
-  %button(ng-click="markAll(false)") Exclude All
-  %button(ng-click="billItem.editing=true") Add Event
+  .row-fluid
+    %span.span3
+      %button(ng-click="editBillItem()") Add Event
+    %span.span3
+      %button(ng-click="markAll(true)") Include All
+    %span.span3
+      %button(ng-click="markAll(false)") Exclude All
 
-  %form(name='billItemForm' ng-submit="saveBillItem()" ng-show="billItem.editing" )
-    .row
-      %label When
-      %input(type="text" datepicker-popup="dd.MM.yyyy" ng-model="billItem.occurredOn" is-open="opened" datepicker-options="{'starting-day': 1, 'show-weeks': false}" ng-required="true")
-    .row
-      %input.span4(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
-    .row
-      %input.span4(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
-    .row
-      %input(type="submit")
-      %button(ng-click="resetBillItem()") Cancel
-    .row
-      {{billItem}}
+  %script(id='billItemTemplate.html' type='text/ng-template')
+    .modal-header
+      %h3(ng-show="billItem.eventId") Edit Event
+      %h3(ng-hide="billItem.eventId") Create Event
+    .modal-body
+      %form(name='billItemForm')
+        .row-fluid
+          .span2 Who
+          %input.span8(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
+        .row-fluid
+          .span2 When
+          .well.well-small.pull-left(ng-model="billItem.occurredOn")
+            %datepicker(show-weeks="false")
+        .row-fluid
+          .span2 What
+          %input.span8(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
+    .modal-footer
+      %button(class='btn btn-primary' ng-click='$close(billItem)') Submit
+      %button(class='btn btn-warning' ng-click="$dismiss()") Cancel
+      .row
+        {{billItem}}
 
 
   %ol
     %li(ng-repeat="clientId in clientOrder")
-      %span(ng-bind="clientHash[clientId].text")
-      %div(ng-repeat='billItem in billItemsByClient[clientId]' ng-dblclick="editBillItem(billItem)" )
-        %span
+      %h3(ng-bind="clientHash[clientId].text" ng-dblclick="editBillItem({clientId: clientId})" )
+      .row(ng-repeat='billItem in billItemsByClient[clientId]' ng-dblclick="editBillItem(billItem)" )
+        %span.span1
           %input(type='checkbox' ng-model='billItem.included')
-        %span(tk-date-format="{{billItem.occurredOn}}" format='L')
-        %span(style="background-color: {{eventCategoryHash[billItem.eventCategoryId].color}}" ng-bind="eventCategoryHash[billItem.eventCategoryId].text")
+        %span.span2(tk-date-format="{{billItem.occurredOn}}" format='DD.MM' ng-animate="true" )
+        %span.span3(ng-hide="billItem.included")
+        %span.span3(style="background-color: {{eventCategoryHash[billItem.eventCategoryId].color}}" ng-bind="eventCategoryHash[billItem.eventCategoryId].text" ng-animate="true" )
 
 
 %h1 New bill

@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', ($scope, Bill, Client, User, Event) ->
+controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', ($scope, Bill, Client, User, Event, $modal) ->
   # models updated from ui
   $scope.current =
     clients: {}
@@ -47,6 +47,12 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
         details: [JSON.stringify error]
       console?.log "failed", error
 
+  UTCtoLocalTime = (utc) ->
+    timeOffsetInHours = (new Date().getTimezoneOffset()/60) * (-1)
+    utc = new Date(utc)
+    utc.setHours(utc.getHours() + timeOffsetInHours)
+    utc
+
   $scope.saveBillItem = ->
     console?.log "saveBillItem", $scope.billItem
     item = $scope.billItem
@@ -54,7 +60,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       therapistId: $scope.therapist.id
       clientId: item.client.id
       eventCategoryId: item.category.id
-      occurredOn: item.occurredOn
+      occurredOn: UTCtoLocalTime(item.occurredOn)
       id: item.eventId
     return unless event.occurredOn and event.clientId and event.eventCategoryId
     saveEvent(event)
@@ -65,10 +71,19 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
     loadBill()
 
   $scope.editBillItem = (billItem) ->
-    $scope.billItem = angular.copy(billItem)
-    $scope.billItem.client = $scope.clientHash[billItem.clientId]
-    $scope.billItem.category = $scope.eventCategoryHash[billItem.eventCategoryId]
-    $scope.billItem.editing = true
+    if billItem
+      $scope.billItem = angular.copy(billItem)
+      $scope.billItem.client = $scope.clientHash[billItem.clientId]
+      $scope.billItem.category = $scope.eventCategoryHash[billItem.eventCategoryId]
+    else
+      $scope.billItem = {}
+    modal = $modal.open
+      templateUrl: 'billItemTemplate.html'
+      scope: $scope
+    modal.result.then ->
+      $scope.saveBillItem()
+    , ->
+      console.log "modal dismissed"
 
   $scope.resetBillItem = ->
     $scope.billItem.editing = false
@@ -90,9 +105,10 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       billItemsByEventId = {}
       billItemsByClient = {}
       clientOrder = []
+      $scope.billItemsByEventId ||= {}
 
       for key in bill.billItems
-        key.included = billItemsByEventId[key.eventId].included if billItemsByEventId[key.eventId]
+        key.included = $scope.billItemsByEventId[key.eventId].included if $scope.billItemsByEventId[key.eventId]
         billItemsByEventId[key.eventId] = key
         clientOrder.push(key.clientId) unless billItemsByClient[key.clientId]
         billItemsByClient[key.clientId] ||= []
