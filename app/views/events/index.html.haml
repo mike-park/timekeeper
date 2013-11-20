@@ -1,11 +1,9 @@
 #events(ng-controller='showEventsCtrl')
-  .row
-    .col-sm-12
-      %h4 Review Events
+  %h4 Review Events
   .row(ng-hide='inProgress')
     .col-sm-4
-      %input.col-sm-12(tk-select2='{allowClear: true}' ng-multiple="false" data-placeholder="Filter by Therapist" ng-model="current.therapist" collection='therapists')
-      %br
+      .row
+        %input.col-sm-12(tk-select2='{allowClear: true}' ng-multiple="false" data-placeholder="Filter by Therapist" ng-model="current.therapist" collection='therapists')
       %label.all-box
         %input(type='checkbox' ng-model='showAllTherapistEvents')
         Show billed & unbilled events
@@ -28,6 +26,6 @@
     -#{{ clients }}
 
   .row
-    .col-sm-12
+    .col-xs-12
       .calendar(tk-event-calendar="{aspectRatio: 2, defaultView: 'month'}" event-options='eventOptions' ng-model="events")
       %tk-event-popover(on-remove-event='reloadEvents()')
