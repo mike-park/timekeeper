@@ -17,12 +17,13 @@ controllers.controller 'listClientsCtrl', ['$scope', 'Client', ($scope, Client) 
   reloadClients = ->
     $scope.current.client = null
     $scope.client = null
-    $scope.clients = Client.query(all: $scope.showAllClients)
+    Client.query(all: $scope.showAllClients).then (clients) ->
+      $scope.clients = clients
 
   loadClient = (client) ->
     return unless client?
-    $scope.client = Client.get(client.id).then (client) ->
-      client
+    Client.get(client.id).then (client) ->
+      $scope.client = client
     , (error) ->
       $scope.$emit 'showError',
         title: 'Error loading client'
