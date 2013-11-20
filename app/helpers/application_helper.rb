@@ -108,7 +108,7 @@ module ApplicationHelper
   end
 
   def new_link(name, url)
-    link_to(url, class: 'btn btn-lg btn-primary', title: name) do
+    link_to(url, class: 'btn btn-lg btn-primary btn-new', title: name) do
       content_tag(:i, '', class: 'glyphicon glyphicon-plus') + " #{name}"
     end
   end
