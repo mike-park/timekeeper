@@ -6,15 +6,13 @@
 
   .row.ng-cloak(ng-hide='inProgress')
     .col-sm-6
-      .row
-        %input.col-sm-12(tk-select2=true ng-multiple="false" data-placeholder="Select Therapist" ng-model="current.therapist" collection='therapists')
+      %input(tk-select2=true ng-multiple="false" data-placeholder="Select Therapist" ng-model="current.therapist" collection='therapists')
       %label.all-box
         %input(type='checkbox' ng-model='showAllTherapistEvents')
         Show billed & unbilled events
 
     .col-sm-6(ng-show='current.therapist')
-      .row
-        %input.col-sm-12(tk-select2='{allowClear: true}' data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
+      %input(tk-select2='{allowClear: true}' data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
       %label.all-box
         %input(type='checkbox' ng-model='showAllClients')
         Include all clients

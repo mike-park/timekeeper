@@ -22,16 +22,10 @@
       %h3(ng-hide="billItem.eventId") Create Event
     .modal-body
       %form(name='billItemForm')
-        .row
-          .col-sm-2 Who
-          %input.col-sm-8(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
-        .row
-          .col-sm-2 When
-          .well.well-small.pull-left(ng-model="billItem.occurredOn")
-            %datepicker(show-weeks="false")
-        .row
-          .col-sm-2 What
-          %input.col-sm-8(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
+        %input(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
+        .well.well-small.pull-left(ng-model="billItem.occurredOn")
+          %datepicker(show-weeks="false")
+        %input(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
     .modal-footer
       %button(class='btn btn-primary' ng-click='$close(billItem)') Submit
       %button(class='btn btn-warning' ng-click="$dismiss()") Cancel

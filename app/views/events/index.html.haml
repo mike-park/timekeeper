@@ -2,15 +2,16 @@
   %h4 Review Events
   .row(ng-hide='inProgress')
     .col-sm-4
-      .row
-        %input.col-sm-12(tk-select2='{allowClear: true}' ng-multiple="false" data-placeholder="Filter by Therapist" ng-model="current.therapist" collection='therapists')
+      %input(tk-select2='{allowClear: true}' ng-multiple="false" data-placeholder="Filter by Therapist" ng-model="current.therapist" collection='therapists')
       %label.all-box
         %input(type='checkbox' ng-model='showAllTherapistEvents')
         Show billed & unbilled events
 
-    %input.col-sm-4(tk-select2='{allowClear: true}' data-placeholder='Filter by Activity' ng-model='current.category' collection='categories')
+    .col-sm-4
+      %input(tk-select2='{allowClear: true}' data-placeholder='Filter by Activity' ng-model='current.category' collection='categories')
 
-    %input.col-sm-4(tk-select2='{allowClear: true}' data-placeholder="Filter by Client" ng-model="current.client" collection='clients')
+    .col-sm-4
+      %input(tk-select2='{allowClear: true}' data-placeholder="Filter by Client" ng-model="current.client" collection='clients')
 
   -#.row
   -#  %button(ng-click='$emit("showProgress", {title: "my Title"})') Show Progress

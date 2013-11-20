@@ -11,3 +11,8 @@
     padding: 10px;
   }
 }
+
+// always embedded our select2 within col-xx-xx spans
+.select2-container {
+  width: 100%;
+}
