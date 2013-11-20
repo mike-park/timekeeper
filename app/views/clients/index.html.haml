@@ -1,21 +1,18 @@
 %div(ng-controller='listClientsCtrl')
-  .row
-    .col-sm-1
-      = new_link 'Add Client', new_client_path
+  = new_link 'Add Client', new_client_path
 
   .row
-    .col-sm-5
-      %input.col-sm-12(tk-select2=true data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
-      %br
-      %label.all-box
-        %input(type='checkbox' ng-model='showAllClients')
-        Include all clients
+    %input.col-sm-5(tk-select2="{}" data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
+  .row
+    %label.all-box.col-sm-5
+      %input(type='checkbox' ng-model='showAllClients')
+      Include all clients
 
   #details(ng-show='client')
     %h4
       {{client.fullName}}
-      %a.btn.btn-small(href='{{client.url}}/edit') Edit
-      %a.btn.btn-small(tk-confirm='deleteClient(client)' title='Delete {{client.fullName}}' ng-hide='client.events.length') Delete
+      %a.btn.btn-sm.btn-default(href='{{client.url}}/edit') Edit
+      %a.btn.btn-sm.btn-default(tk-confirm='deleteClient(client)' title='Delete {{client.fullName}}' ng-hide='client.events.length') Delete
 
     .row
       .col-sm-2
