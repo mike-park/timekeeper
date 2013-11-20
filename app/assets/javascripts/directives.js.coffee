@@ -1,6 +1,6 @@
 #= require_self
 
-directives = angular.module('timekeeper.directives', ['timekeeper.templates'])
+directives = angular.module('timekeeper.directives', ['timekeeper.templates', 'messageBox'])
 
 directives.directive 'tkEventCalendar', ['ui.config', '$parse', (uiConfig, $parse) ->
   uiConfig.uiCalendar = uiConfig.uiCalendar || {}
@@ -359,7 +359,7 @@ directives.directive 'tkDateFormat', ->
 # title - title of the dialog box
 # message - body of the dialog box
 # <a href='#' tk-confirm='deleteEvent(event)' title='Delete {{event.name}}' message='Are you sure?'>
-directives.directive 'tkConfirm', ['$dialog', ($dialog) ->
+directives.directive 'tkConfirm', ['messageBox', (messageBox) ->
   factory =
     restrict: 'A'
     link: (scope, elm, attrs) ->
@@ -368,7 +368,7 @@ directives.directive 'tkConfirm', ['$dialog', ($dialog) ->
         title = attrs.title || 'Confirmation'
         message = attrs.messsage || 'Are you sure?'
         btns = [{result: false, label: 'Cancel'}, {result: true, label: 'OK', cssClass: 'btn-primary'}]
-        $dialog.messageBox(title, message, btns).open().then (result) ->
+        messageBox.open(title, message, btns).then (result) ->
           console.log 'result', result
           completeAction() if result
 
