@@ -24,7 +24,7 @@ gem 'angular-ui-bootstrap-rails', github: 'mike-park/angular-ui-bootstrap-rails'
 gem 'angular-ng-grid-rails', '~> 2.0.7.2'
 gem 'd3_rails'
 gem "fullcalendar-rails", "~> 1.5.4.0"
-gem 'select2-rails', '~> 3.2.0'
+gem 'select2-rails', '~> 3.5.1'
 gem 'inherited_resources', '~> 1.3.1'
 gem 'strong_parameters', '~> 0.2.1'
 gem "active_model_serializers", '~> 0.8.1'
