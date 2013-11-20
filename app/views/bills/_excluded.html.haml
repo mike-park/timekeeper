@@ -1,7 +1,7 @@
-.row-fluid
-  .span8
+.row
+  .col-sm-8
     %h4 Excluded Events
-    %table.table.tablesorter.table-bill-items.table-condensed
+    %table.table.tablesorter.table-condensed
       %thead
         %tr
           %th Name
@@ -18,4 +18,4 @@
               = form_for(bi, remote: true) do |f|
                 = f.hidden_field :bill_id, value: @bill.id
                 = f.hidden_field :event_id
-                = f.submit 'Add', class: 'btn btn-mini'
+                = f.submit 'Add', class: 'btn btn-sm btn-default'

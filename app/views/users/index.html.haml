@@ -1,5 +1,5 @@
-.row-fluid
-  .span9
+.row
+  .col-sm-9
     %table.table
       %caption Users
       %thead
@@ -26,6 +26,6 @@
             %td= edit_link(edit_user_path(user))
             %td= destroy_link(user_path(user)) unless user == current_user
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Add User', new_user_path

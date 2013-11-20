@@ -1,5 +1,5 @@
-.row-fluid
-  .span9
+.row
+  .col-sm-9
     %table.table
       %caption Prices
       %thead
@@ -20,6 +20,6 @@
           %td= edit_link edit_event_category_price_path(ecp)
           %td= destroy_link ecp
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Add Price', new_event_category_price_path

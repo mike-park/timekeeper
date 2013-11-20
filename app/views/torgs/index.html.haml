@@ -1,5 +1,5 @@
-.row-fluid
-  .span8
+.row
+  .col-sm-8
     %table.table
       %caption T-Org-Berichte
       %tr
@@ -15,6 +15,6 @@
           %td Vor #{time_ago_in_words torg.created_at}
           %td= destroy_link(torg)
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Neues T-Org Bericht', new_torg_path

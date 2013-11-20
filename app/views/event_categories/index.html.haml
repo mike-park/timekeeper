@@ -1,5 +1,5 @@
-.row-fluid
-  .span9
+.row
+  .col-sm-9
     %table.table
       %caption Event Categories
       %thead
@@ -22,6 +22,6 @@
           %td= edit_link edit_event_category_path(ec)
           %td= destroy_link ec
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Add Event Category', new_event_category_path

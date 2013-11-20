@@ -1,5 +1,5 @@
-.row-fluid
-  .span8
+.row
+  .col-sm-8
     %table.table
       %caption Praxis Bills
       %thead
@@ -25,6 +25,6 @@
             %td= edit_link edit_praxis_bill_path(praxis_bill)
             %td= destroy_link praxis_bill
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Add Praxis Bill', new_praxis_bill_path

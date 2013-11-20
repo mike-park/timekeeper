@@ -1,32 +1,30 @@
 - entries = ActiveModel::ArraySerializer.new(@bills, each_serializer: D3BillSerializer)
-.row-fluid(ng-init="bill.amount={entries:#{entries.to_json}}")
-  %div
+.row(ng-init="bill.amount={entries:#{entries.to_json}}")
+  .col-sm-12
     %strong Bill Totals
-  .span8{style: 'height: 200px'}
+  .col-sm-12{style: 'height: 200px'}
     %fs-area(label="Euro" interpolate="true" bind="bill.amount")
 
 
-.row-fluid
-  .span8
-    %table.table
+.row
+  .col-sm-8
+    %table.table.table-responsive
       %caption Bills
       %tr
         %th Billed on
         %th Bill Number
-        %th Total
-        %th
+        %th.money Total
         %th
         %th
 
       - @bills.each do |bill|
         %tr
           %td= bill.billed_on.to_s(:de)
-          %td= bill.number
+          %td= link_to(bill.number, bill)
           = td_money(bill.total)
-          %td= show_link([parent, bill])
           %td= edit_link edit_therapist_bill_path(parent, bill)
           %td= destroy_link([parent, bill])
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Add Bill', new_therapist_bill_path(parent)

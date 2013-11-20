@@ -6,8 +6,8 @@ module ApplicationHelper
     return '' if (resource.errors.empty?) or (resource.errors[:base].empty?)
     messages = resource.errors[:base].map { |msg| content_tag(:p, msg) }.join
     html = <<-HTML
-    <div class="alert alert-error alert-block">
-      <button type="button" class="close" data-dismiss="alert">&#215;</button>
+    <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
       #{messages}
     </div>
     HTML
@@ -19,7 +19,9 @@ module ApplicationHelper
   end
 
   def number_to_euro(amount)
-    number_to_currency(amount, :unit=>'€') #.gsub(' ', '&nbsp;')
+    euro = number_to_currency(amount, :unit=>'')
+    euro = (euro.strip + "&nbsp;€").html_safe if euro
+    euro
   end
 
   def td_money(amount)
@@ -49,7 +51,7 @@ module ApplicationHelper
   def datepicker_field(form, field_name, default_date = Date.current)
     value = form.object.send(field_name) || default_date
     value = value.to_s(:long_de) if value
-    form.input field_name, as: :string,  input_html: {class: 'date-picker span2', value: value }
+    form.input field_name, as: :string,  input_html: {class: 'date-picker col-sm-2', value: value }
   end
 
   def service_type_field(form, field_name)
@@ -57,11 +59,11 @@ module ApplicationHelper
   end
 
   def sidebar_link(text, url, options = {})
-    content_tag(:p, link_to(text, url, options.merge(class: 'btn span3')))
+    content_tag(:p, link_to(text, url, options.merge(class: 'btn col-sm-3')))
   end
 
   def add_action(text, url, icon = "", options = {})
-    icon = "<i class='icon-#{icon}'></i>".html_safe if icon.present?
+    icon = "<i class='glyphicon glyphicon-#{icon}'></i>".html_safe if icon.present?
     content_for(:actions) do
       content_tag(:li, link_to(icon + text, url, options))
     end
@@ -70,14 +72,14 @@ module ApplicationHelper
   def print_button(text, options = {})
     url_options = params.merge(options.merge(print: true, format: 'pdf'))
     content_tag(:span, class: 'pull-right print-button') do
-      link_to(text, url_for(url_options), class: 'btn btn-large btn-primary', target: 'printer')
+      link_to(text, url_for(url_options), class: 'btn btn-lg btn-primary', target: 'printer')
     end
   end
 
   def csv_button(text, options = {})
     url_options = params.merge(options.merge(format: 'csv'))
     content_tag(:span, class: 'pull-right print-button') do
-      link_to(text, url_for(url_options), class: 'btn btn-large btn-primary')
+      link_to(text, url_for(url_options), class: 'btn btn-lg btn-primary')
     end
   end
 
@@ -98,31 +100,31 @@ module ApplicationHelper
   end
 
   def edit_link(url)
-    link_to(url, title: 'Edit item') {content_tag(:i, '', class: 'icon-edit')}
+    link_to(url, title: 'Edit item') {content_tag(:i, '', class: 'glyphicon glyphicon-edit')}
   end
 
   def show_link(url)
-    link_to(url, title: 'More details') { content_tag(:i, '', class: 'icon-zoom-in') }
+    link_to(url, title: 'More details') { content_tag(:i, '', class: 'glyphicon glyphicon-zoom-in') }
   end
 
   def new_link(name, url)
-    link_to(url, class: 'btn btn-large btn-new', title: name) do
-      content_tag(:i, '', class: 'icon-plus') + " #{name}"
+    link_to(url, class: 'btn btn-lg btn-primary', title: name) do
+      content_tag(:i, '', class: 'glyphicon glyphicon-plus') + " #{name}"
     end
   end
 
   def destroy_link(url)
     link_to(url, data: {confirm: 'Are you sure you want to delete this?'}, method: :delete, title: 'Destroy item') do
-      content_tag(:i, '', class: 'icon-trash')
+      content_tag(:i, '', class: 'glyphicon glyphicon-trash')
     end
   end
 
   def cancel_link(url)
-    link_to('Cancel', url, title: 'Cancel change', class: 'btn btn-small')
+    link_to('Cancel', url, title: 'Cancel change', class: 'btn btn-sm btn-default')
   end
 
   def tick_if(value)
-    content_tag(:i, '', class: 'icon-ok') if value
+    content_tag(:i, '', class: 'glyphicon glyphicon-ok') if value
   end
 
   def color_box(color)

@@ -1,5 +1,5 @@
-.row-fluid
-  .span8
+.row
+  .col-sm-8
     %table.table
       %caption Therapists
       %tr
@@ -15,6 +15,6 @@
           %td= edit_link(edit_therapist_path(therapist))
           %td= destroy_link therapist_path(therapist)
 
-.row-fluid
-  .span
+.row
+  .col-sm-1
     = new_link 'Add Therapist', new_therapist_path

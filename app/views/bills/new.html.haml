@@ -4,16 +4,16 @@
 
   %form.form-inline
     %label Billed On
-    %input.span2(name='billedOn' ng-model='bill.billedOn' ng-required='true')
+    %input.col-sm-2(name='billedOn' ng-model='bill.billedOn' ng-required='true')
     %label Number
-    %input.span2(name='number' ng-model='bill.number' ng-required='true')
+    %input.col-sm-2(name='number' ng-model='bill.number' ng-required='true')
 
-  .row-fluid
-    %span.span3
+  .row
+    %span.col-sm-3
       %button(ng-click="editBillItem()") Add Event
-    %span.span3
+    %span.col-sm-3
       %button(ng-click="markAll(true)") Include All
-    %span.span3
+    %span.col-sm-3
       %button(ng-click="markAll(false)") Exclude All
 
   %script(id='billItemTemplate.html' type='text/ng-template')
@@ -22,16 +22,16 @@
       %h3(ng-hide="billItem.eventId") Create Event
     .modal-body
       %form(name='billItemForm')
-        .row-fluid
-          .span2 Who
-          %input.span8(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
-        .row-fluid
-          .span2 When
+        .row
+          .col-sm-2 Who
+          %input.col-sm-8(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
+        .row
+          .col-sm-2 When
           .well.well-small.pull-left(ng-model="billItem.occurredOn")
             %datepicker(show-weeks="false")
-        .row-fluid
-          .span2 What
-          %input.span8(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
+        .row
+          .col-sm-2 What
+          %input.col-sm-8(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
     .modal-footer
       %button(class='btn btn-primary' ng-click='$close(billItem)') Submit
       %button(class='btn btn-warning' ng-click="$dismiss()") Cancel
@@ -43,17 +43,17 @@
     %li(ng-repeat="clientId in clientOrder")
       %h3(ng-bind="clientHash[clientId].text" ng-dblclick="editBillItem({clientId: clientId})" )
       .row
-        .span6
+        .col-sm-6
           %small
-            %em.span12.text-center Include
+            %em.col-sm-12.text-center Include
           .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}')
             .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=false")
               %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
               {{billItem.category.text}}
             %span(ng-click="editBillItem(billItem)" ) Edit
-        .span6
+        .col-sm-6
           %small
-            %em.span12.text-center Exclude
+            %em.col-sm-12.text-center Exclude
           .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}')
             .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=true")
               %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')

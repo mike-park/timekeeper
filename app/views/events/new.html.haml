@@ -1,46 +1,46 @@
 #clients(ng-controller='eventsCtrl')
-  .row-fluid
-    .span12
+  .row
+    .col-sm-12
       %h4 Edit Events
 
-  .row-fluid(ng-show='inProgress')
-    .span12
+  .row(ng-show='inProgress')
+    .col-sm-12
       LOADING...
 
-  .row-fluid.ng-cloak(ng-hide='inProgress')
-    .span6
-      %input.span12(tk-select2=true ng-multiple="false" data-placeholder="Select Therapist" ng-model="current.therapist" collection='therapists')
+  .row.ng-cloak(ng-hide='inProgress')
+    .col-sm-6
+      %input.col-sm-12(tk-select2=true ng-multiple="false" data-placeholder="Select Therapist" ng-model="current.therapist" collection='therapists')
       %br
       %label.all-box
         %input(type='checkbox' ng-model='showAllTherapistEvents')
         Show billed & unbilled events
 
-    .span6(ng-show='current.therapist')
-      %input.span12(tk-select2='{allowClear: true}' data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
+    .col-sm-6(ng-show='current.therapist')
+      %input.col-sm-12(tk-select2='{allowClear: true}' data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
       %br
       %label.all-box
         %input(type='checkbox' ng-model='showAllClients')
         Include all clients
 
-  .row-fluid(ng-show='current.client')
+  .row(ng-show='current.client')
     .category(ng-repeat='category in categories' style='background-color: {{category.color}};'
               tk-draggable=true on-start='current.category=category'
               ng-click='current.category=category' ng-class='{active: current.category==category}')
       {{ category.text }}
 
-    -#.row-fluid
+    -#.row
     -#  %button(ng-click='$emit("showProgress", {title: "my Title"})') Show Progress
     -#  %button(ng-click='$emit("hideProgress", {slow: true})') Hide Progress
     -#  %button(ng-click='$emit("showError", {title: "my Title", description: "Problem doing something very important.  Try again", details: ["Missing one", "Missing two", "You must supply three"]})') Show Error
     -#  %button(ng-click='$emit("hideError")') Hide Error
 
-    -#.row-fluid
+    -#.row
       -#{{ current.therapist }}
       -#{{ current.client }}
       -#{{ current.category }}
       -#{{ clients }}
 
-  .row-fluid.ng-cloak(ng-hide='inProgress')
-    .span12
+  .row.ng-cloak(ng-hide='inProgress')
+    .col-sm-12
       .calendar(tk-event-calendar="{aspectRatio: 2}" event-options='eventOptions' ng-model="events")
       %tk-event-popover(on-remove-event='reloadEvents()')

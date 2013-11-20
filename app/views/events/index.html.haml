@@ -1,33 +1,33 @@
 #events(ng-controller='showEventsCtrl')
-  .row-fluid
-    .span12
+  .row
+    .col-sm-12
       %h4 Review Events
-  .row-fluid(ng-hide='inProgress')
-    .span4
-      %input.span12(tk-select2='{allowClear: true}' ng-multiple="false" data-placeholder="Filter by Therapist" ng-model="current.therapist" collection='therapists')
+  .row(ng-hide='inProgress')
+    .col-sm-4
+      %input.col-sm-12(tk-select2='{allowClear: true}' ng-multiple="false" data-placeholder="Filter by Therapist" ng-model="current.therapist" collection='therapists')
       %br
       %label.all-box
         %input(type='checkbox' ng-model='showAllTherapistEvents')
         Show billed & unbilled events
 
-    %input.span4(tk-select2='{allowClear: true}' data-placeholder='Filter by Activity' ng-model='current.category' collection='categories')
+    %input.col-sm-4(tk-select2='{allowClear: true}' data-placeholder='Filter by Activity' ng-model='current.category' collection='categories')
 
-    %input.span4(tk-select2='{allowClear: true}' data-placeholder="Filter by Client" ng-model="current.client" collection='clients')
+    %input.col-sm-4(tk-select2='{allowClear: true}' data-placeholder="Filter by Client" ng-model="current.client" collection='clients')
 
-  -#.row-fluid
+  -#.row
   -#  %button(ng-click='$emit("showProgress", {title: "my Title"})') Show Progress
   -#  %button(ng-click='$emit("hideProgress", {slow: true})') Hide Progress
   -#  %button(ng-click='$emit("showError", {title: "my Title", description: "Problem doing something very important.  Try again", details: ["Missing one", "Missing two", "You must supply three"]})') Show Error
   -#  %button(ng-click='$emit("hideError")') Hide Error
 
-  .row-fluid
+  .row
     -#{{ current.therapist }}
     -#{{ current.client }}
     -#{{ current.category }}
     -#{{ categories }}
     -#{{ clients }}
 
-  .row-fluid
-    .span12
+  .row
+    .col-sm-12
       .calendar(tk-event-calendar="{aspectRatio: 2, defaultView: 'month'}" event-options='eventOptions' ng-model="events")
       %tk-event-popover(on-remove-event='reloadEvents()')

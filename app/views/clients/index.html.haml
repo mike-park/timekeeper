@@ -1,11 +1,11 @@
 %div(ng-controller='listClientsCtrl')
-  .row-fluid
-    .span
+  .row
+    .col-sm-1
       = new_link 'Add Client', new_client_path
 
-  .row-fluid
-    .span5
-      %input.span12(tk-select2=true data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
+  .row
+    .col-sm-5
+      %input.col-sm-12(tk-select2=true data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
       %br
       %label.all-box
         %input(type='checkbox' ng-model='showAllClients')
@@ -17,13 +17,13 @@
       %a.btn.btn-small(href='{{client.url}}/edit') Edit
       %a.btn.btn-small(tk-confirm='deleteClient(client)' title='Delete {{client.fullName}}' ng-hide='client.events.length') Delete
 
-    .row-fluid
-      .span2
+    .row
+      .col-sm-2
         .text-success(ng-show='client.active')
           ACTIVE
         .text-warning(ng-hide='client.active')
           NOT ACTIVE
-      .span4
+      .col-sm-4
         %b Geb.
         %span(tk-date-format='{{client.dob}}' format='L')
 

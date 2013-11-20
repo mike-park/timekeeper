@@ -2,8 +2,9 @@ $color_title:    #342d7e;
 $color_subtitle: darkslateblue;
 
 @import "bootstrap";
+
 body {
-  padding-top: 50px;
+  padding-top: 60px;
   background: url(image_path('background.jpeg')) 0 0 repeat;
   background-attachment: fixed;
   font-family: "ProximaNova",Helvetica,Arial,"Lucida Grande",sans-serif;
@@ -71,23 +72,6 @@ table .input, table .clearfix {
 // copied from html5-boilerplate 31.01.2012
 @media print {
   @import "print";
-}
-
-.table-bill-items {
-  form { margin: 0; }
-  td:first-child, th:first-child {
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 20em;
-  }
-  td:nth-child(2), th:nth-child(2) {
-    text-align: center;
-    width: 6em;
-  }
-  td:nth-child(3), th:nth-child(3) {
-    width: 10em;
-  }
 }
 
 .table-new-bill-items {

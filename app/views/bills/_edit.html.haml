@@ -3,10 +3,10 @@
 
   .form-inputs
     = datepicker_field(f, :billed_on)
-    = f.input :number, input_html: {class: 'span2'}
+    = f.input :number, input_html: {class: 'col-sm-2'}
 
   .form-actions
-    = f.button :submit, class: 'btn-primary'
+    = f.button :submit, class: 'btn btn-primary'
     = cancel_link(therapist_bills_path(parent))
 
 #included

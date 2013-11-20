@@ -1,16 +1,16 @@
-.row-fluid
+.row
   -#= print_button('Verify Page', page: :verify)
   = print_button('Print Bill', page: :cover)
 
 .title Bill #{bill.number}
 
-.row-fluid
-  .span2 Date:
-  .span2
+.row
+  .col-sm-2 Date:
+  .col-sm-2
     %strong #{bill.billed_on.to_s(:de)}
-.row-fluid
-  .span2 Total
-  .span2
+.row
+  .col-sm-2 Total
+  .col-sm-2
     %strong #{number_to_euro bill.total}
 
 - bp = BillPresenter.new(bill)
