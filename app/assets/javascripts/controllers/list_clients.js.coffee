@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'listClientsCtrl', ['$scope', 'Client', '$dialog', 'Event', ($scope, Client, $dialog, Event) ->
+controllers.controller 'listClientsCtrl', ['$scope', 'Client', ($scope, Client) ->
   $scope.current =
     client: null
 
