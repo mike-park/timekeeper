@@ -24,11 +24,11 @@ class NotificationSerializer < ActiveModel::Serializer
   def icon
     case object.key
       when /\.destroy/
-        "icon-trash"
+        "glyphicon glyphicon-trash"
       when /\.create/
-        "icon-plus"
+        "glyphicon glyphicon-plus"
       else
-        "icon-edit"
+        "glyphicon glyphicon-edit"
     end
   end
 end
