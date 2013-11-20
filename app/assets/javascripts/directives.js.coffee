@@ -280,6 +280,7 @@ directives.directive 'tkSelect2', ->
   factory =
     require: '?ngModel'
     restrict: 'ACE'
+    priority: 1
     link: (scope, elm, $attrs, controller) ->
       scope.$watch $attrs.collection, (data = []) ->
         setTimeout ->
