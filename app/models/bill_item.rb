@@ -30,7 +30,7 @@ class BillItem < ActiveRecord::Base
   end
 
   def self.by_name
-    all.sort {|a, b| "#{a.full_name}#{a.occurred_on}" <=> "#{b.full_name}#{b.occurred_on}"}
+    all.sort {|a, b| "#{a.client_full_name}#{a.occurred_on}" <=> "#{b.client_full_name}#{b.occurred_on}"}
   end
 
   def title
