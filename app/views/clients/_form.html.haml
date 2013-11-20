@@ -1,14 +1,14 @@
-= simple_form_for(@client, html: {class: 'form-horizontal'}) do |f|
-  = f.error_notification
+.row
+  .col-sm-6
+    = simple_form_for(@client) do |f|
+      = f.error_notification
 
-  .form-inputs
-    = f.input :active
-    = f.input :first_name
-    = f.input :last_name
-    = datepicker_field(f, :dob)
-    = f.input :therapist_list, label: "Therapists (available list #{Therapist.abbreviations.join(', ')})"
+      = f.input :active
+      = f.input :first_name
+      = f.input :last_name
+      .row
+        .col-xs-5= datepicker_field(f, :dob)
+      = f.input :therapist_list, label: "Therapists (available list #{Therapist.abbreviations.join(', ')})"
 
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
-    = cancel_link clients_path
-
+      = f.button :submit, class: 'btn-primary'
+      = cancel_link clients_path

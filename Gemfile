@@ -10,7 +10,7 @@ gem "sendgrid", ">= 1.0.1"
 gem "devise", ">= 2.1.3"
 gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
-gem "simple_form", ">= 2.0.4"
+gem "simple_form", "~> 2.1.0"
 
 gem "jquery-ui-rails", "~> 3.0.1"
 gem 'angularjs-rails', '~> 1.2.1'

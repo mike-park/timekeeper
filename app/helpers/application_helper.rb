@@ -51,7 +51,7 @@ module ApplicationHelper
   def datepicker_field(form, field_name, default_date = Date.current)
     value = form.object.send(field_name) || default_date
     value = value.to_s(:long_de) if value
-    form.input field_name, as: :string,  input_html: {class: 'date-picker col-sm-2', value: value }
+    form.input field_name, as: :string,  input_html: {class: 'date-picker', value: value }
   end
 
   def service_type_field(form, field_name)
@@ -59,7 +59,7 @@ module ApplicationHelper
   end
 
   def sidebar_link(text, url, options = {})
-    content_tag(:p, link_to(text, url, options.merge(class: 'btn col-sm-3')))
+    content_tag(:p, link_to(text, url, options.merge(class: 'btn col-md-3')))
   end
 
   def add_action(text, url, icon = "", options = {})
