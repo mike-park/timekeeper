@@ -1,7 +1,8 @@
 controllers = angular.module 'timekeeper.controllers'
 
 controllers.controller 'listNotificationsCtrl', ['$scope', 'Notification', ($scope, Notification) ->
-  $scope.notifications = Notification.query()
+  Notification.query().then (notifications) ->
+    $scope.notifications = notifications
 
   $scope.columnDefs = [
     {
