@@ -1,25 +1,21 @@
-.row
-  .col-sm-9
-    %table.table
-      %caption Prices
-      %thead
-        %tr
-          %th Title
-          %th Event Category
-          %th Therapists
-          %th Price
-          %th
-          %th
+%table.table
+  %caption Prices
+  %thead
+    %tr
+      %th Title
+      %th Event Category
+      %th Therapists
+      %th Price
+      %th
+      %th
 
-      - @event_category_prices.each do |ecp|
-        %tr
-          %td= ecp.title
-          %td= ecp.event_category.title
-          %td= ecp.therapist_list
-          %td= number_to_euro ecp.price
-          %td= edit_link edit_event_category_price_path(ecp)
-          %td= destroy_link ecp
+  - @event_category_prices.each do |ecp|
+    %tr
+      %td= ecp.title
+      %td= ecp.event_category.title
+      %td= ecp.therapist_list
+      %td= number_to_euro ecp.price
+      %td= edit_link edit_event_category_price_path(ecp)
+      %td= destroy_link ecp
 
-.row
-  .col-sm-1
-    = new_link 'Add Price', new_event_category_price_path
+= new_link 'Add Price', new_event_category_price_path
