@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
   scope :occurred_between, ->(range) { where(occurred_on: range) }
 
   delegate :title, to: :event_category, prefix: true
-  delegate :abbrv, to: :therapist, prefix: true
+  delegate :abbrv, :full_name, to: :therapist, prefix: true
   delegate :full_name, to: :client, prefix: true
 
   def title
