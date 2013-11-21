@@ -152,3 +152,7 @@ table .input, table .clearfix {
   }
 }
 
+// force label to be on 1 row, with radio buttons below
+label.radio_buttons {
+  display: block;
+}
