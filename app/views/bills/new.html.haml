@@ -1,19 +1,20 @@
 %div(ng-controller='newBillCtrl')
-  %h2
-    {{current.client}}
-
-  %form.form-inline
-    %label Billed On
-    %input.col-sm-2(name='billedOn' ng-model='bill.billedOn' ng-required='true')
-    %label Number
-    %input.col-sm-2(name='number' ng-model='bill.number' ng-required='true')
+  %form.form-horizontal
+    .form-group
+      %label.col-sm-2.control-label Billed On
+      .col-sm-10
+        %input.form-control(name='billedOn' ng-model='bill.billedOn' ng-required='true')
+    .form-group
+      %label.col-sm-2.control-label Number
+      .col-sm-10
+        %input.form-control(name='number' ng-model='bill.number' ng-required='true')
 
   .row
-    %span.col-sm-3
-      %button(ng-click="editBillItem()") Add Event
-    %span.col-sm-3
+    .col-sm-3
+      %button(ng-click="editBillItem()") Add New Event
+    .col-sm-3
       %button(ng-click="markAll(true)") Include All
-    %span.col-sm-3
+    .col-sm-3
       %button(ng-click="markAll(false)") Exclude All
 
   %script(id='billItemTemplate.html' type='text/ng-template')
@@ -27,8 +28,8 @@
           %datepicker(show-weeks="false")
         %input(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category' collection='categories' ng-required="true" )
     .modal-footer
+      %button(class='btn btn-default' ng-click="$dismiss()") Cancel
       %button(class='btn btn-primary' ng-click='$close(billItem)') Submit
-      %button(class='btn btn-warning' ng-click="$dismiss()") Cancel
       .row
         {{billItem}}
 

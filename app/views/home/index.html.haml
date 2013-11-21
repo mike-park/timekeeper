@@ -5,12 +5,12 @@
 - if current_user.therapist
   .row
     .action.col-sm-6
-      .btn.btn-large
-        %i(class='icon-edit')
+      .btn.btn-block.btn-default
+        %i(class='glyphicon glyphicon-edit')
         = link_to(t('.new_event', default: 'Add, remove or edit calendar events'), new_event_path)
     .action.col-sm-6
-      .btn.btn-large
-        %i(class='icon-zoom-in')
+      .btn.btn-block.btn-default
+        %i(class='glyphicon glyphicon-zoom-in')
         = link_to(t('.list_events', default: 'Review existing calendar events'), events_path)
 
 - week_reminders = signature_week_reminders(current_user.therapist)

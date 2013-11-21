@@ -1,12 +1,10 @@
 = simple_form_for(@event_category_price) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :title
-    = f.association :event_category
-    = f.input :therapist_list, label: "Therapists (available list #{Therapist.abbreviations.join(', ')})"
-    = f.input :price
+  = f.input :title
+  = f.association :event_category
+  = f.input :therapist_list, label: "Therapists (available list #{Therapist.abbreviations.join(', ')})"
+  = f.input :price
 
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
-    = cancel_link event_category_prices_path
+  = f.button :submit
+  = cancel_link event_category_prices_path

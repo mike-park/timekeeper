@@ -1,12 +1,10 @@
 = simple_form_for(@event) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.association :therapist
-    = f.association :event_category
-    = f.association :user
-    = f.input :occurred_on
-    = f.association :client
+  = f.association :therapist
+  = f.association :event_category
+  = f.association :user
+  = f.input :occurred_on
+  = f.association :client
 
-  .form-actions
-    = f.button :submit
+  = f.button :submit

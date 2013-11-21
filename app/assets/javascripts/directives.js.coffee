@@ -368,7 +368,8 @@ directives.directive 'tkConfirm', ['messageBox', (messageBox) ->
         console.log 'startAction', attrs
         title = attrs.title || 'Confirmation'
         message = attrs.messsage || 'Are you sure?'
-        btns = [{result: false, label: 'Cancel'}, {result: true, label: 'OK', cssClass: 'btn-primary'}]
+        btns = [{result: false, label: 'Cancel', cssClass: 'btn-default'},
+          {result: true, label: 'OK', cssClass: 'btn-primary'}]
         messageBox.open(title, message, btns).then (result) ->
           console.log 'result', result
           completeAction() if result

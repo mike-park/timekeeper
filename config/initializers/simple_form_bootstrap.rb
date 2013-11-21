@@ -27,6 +27,15 @@ end
 SimpleForm.setup do |config|
   config.boolean_style = :nested
 
+  # Default class for buttons
+  config.button_class = 'btn btn-primary'
+
+  # CSS class to add for error notification helper.
+  config.error_notification_class = 'alert alert-danger'
+
+  # You can define the class to use on all labels. Default is nil.
+  config.label_class = 'control-label'
+
   config.wrappers :bootstrap3, tag: 'div', class: 'form-group', error_class: 'has-error',
                   defaults: { input_html: { class: 'default_class' } } do |b|
 

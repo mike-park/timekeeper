@@ -1,17 +1,15 @@
 = simple_form_for(@therapist) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :first_name
-    = f.input :last_name
-    = f.input :abbrv
-    = f.input :category
-    = f.input :bank
-    = f.input :blz
-    = f.input :konto_nr
-    = f.input :phone, label: 'Handy Nummer'
-    = f.input :send_reminders, as: :radio, label: 'Send SMS Signature Reminders'
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :abbrv
+  = f.input :category
+  = f.input :bank
+  = f.input :blz
+  = f.input :konto_nr
+  = f.input :phone, label: 'Handy Nummer'
+  = f.input :send_reminders, as: :radio, label: 'Send SMS Signature Reminders'
 
-  .form-actions
-    = f.button :submit, class: 'btn-primary'
-    = cancel_link therapists_path
+  = f.button :submit
+  = cancel_link therapists_path

@@ -6,5 +6,5 @@
     .modal-body
       = f.input :role_ids, :collection => Role.all, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline'
     .modal-footer
-      = f.submit "Change Role", :class => "btn"
+      = f.submit "Change Role", :class => "btn btn-default"
       %a.btn{"data-dismiss" => "modal", :href => "#"} Close

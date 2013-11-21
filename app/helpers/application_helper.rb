@@ -59,7 +59,7 @@ module ApplicationHelper
   end
 
   def sidebar_link(text, url, options = {})
-    content_tag(:p, link_to(text, url, options.merge(class: 'btn col-md-3')))
+    content_tag(:p, link_to(text, url, options.merge(class: 'btn btn-default col-md-3')))
   end
 
   def add_action(text, url, icon = "", options = {})
