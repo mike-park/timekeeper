@@ -1,27 +1,23 @@
-.row
-  .col-sm-9
-    %table.table
-      %caption Event Categories
-      %thead
-        %tr
-          %th Active
-          %th Title
-          %th Abbrv
-          %th Sort Order
-          %th Color
-          %th
-          %th
+%table.table
+  %caption Event Categories
+  %thead
+    %tr
+      %th Active
+      %th Title
+      %th Abbrv
+      %th Sort Order
+      %th Color
+      %th
+      %th
 
-      - @event_categories.each do |ec|
-        %tr
-          %td= tick_if ec.active
-          %td= ec.title
-          %td= ec.abbrv
-          %td= ec.sort_order
-          %td= color_box ec.color
-          %td= edit_link edit_event_category_path(ec)
-          %td= destroy_link ec
+  - @event_categories.each do |ec|
+    %tr
+      %td= tick_if ec.active
+      %td= ec.title
+      %td= ec.abbrv
+      %td= ec.sort_order
+      %td= color_box ec.color
+      %td= edit_link edit_event_category_path(ec)
+      %td= destroy_link ec
 
-.row
-  .col-sm-1
-    = new_link 'Add Event Category', new_event_category_path
+= new_link 'Add Event Category', new_event_category_path
