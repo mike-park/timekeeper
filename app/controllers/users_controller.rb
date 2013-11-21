@@ -30,6 +30,6 @@ class UsersController < InheritedResources::Base
   end
 
   def resource_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :therapist_id, :role_ids)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :therapist_id, :role_ids => [])
   end
 end
