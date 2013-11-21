@@ -3,7 +3,7 @@
     .form-group
       %label.col-sm-2.control-label Billed On
       .col-sm-10
-        %input.form-control(name='billedOn' ng-model='bill.billedOn' ng-required='true')
+        %input.form-control(name='billedOn' ng-model='bill.billedOn' ng-required='true' datepicker-popup="dd.MM.yyyy")
     .form-group
       %label.col-sm-2.control-label Number
       .col-sm-10
@@ -42,23 +42,17 @@
           %small
             %em.col-sm-12.text-center Include
           .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}')
-            .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=false")
-              %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
-              {{billItem.category.text}}
-            %span(ng-click="editBillItem(billItem)" ) Edit
+            .col-xs-12
+              .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=false")
+                %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
+                {{billItem.category.text}}
+              %span(ng-click="editBillItem(billItem)" ) Edit
         .col-sm-6
           %small
             %em.col-sm-12.text-center Exclude
           .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}')
-            .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=true")
-              %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
-              {{billItem.category.text}}
-            %span(ng-click="editBillItem(billItem)" ) Edit
-
-%h1 New bill
-
-- # force bill items to current unbilled items
-- @bill.bill_items = parent.unbilled_items
-- @bill.number ||= @bill.generate_number
-
-= render 'form'
+            .col-xs-12
+              .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=true")
+                %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
+                {{billItem.category.text}}
+              %span(ng-click="editBillItem(billItem)" ) Edit
