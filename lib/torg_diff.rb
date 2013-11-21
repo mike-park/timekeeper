@@ -64,11 +64,11 @@ class TorgDiff
     end
 
     def as_insert
-      %Q{<tr class="differ-ins"><td><i class="icon-plus"></i></td>#{row_to_s}</tr>}.html_safe
+      %Q{<tr class="differ-ins"><td><i class="glyphicon glyphicon-plus"></i></td>#{row_to_s}</tr>}.html_safe
     end
 
     def as_delete
-      %Q{<tr class="differ-del"><td><i class="icon-minus"></i></td>#{row_to_s}</tr>}.html_safe
+      %Q{<tr class="differ-del"><td><i class="glyphicon glyphicon-minus"></i></td>#{row_to_s}</tr>}.html_safe
     end
   end
 end

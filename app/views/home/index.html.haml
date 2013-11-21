@@ -2,35 +2,20 @@
   = t('.welcome', default: 'Welcome to IFF Timekeeper')
   = current_user.name
 
-- if current_user.therapist
-  .row
-    .action.col-sm-6
-      .btn.btn-block.btn-default
-        %i(class='glyphicon glyphicon-edit')
-        = link_to(t('.new_event', default: 'Add, remove or edit calendar events'), new_event_path)
-    .action.col-sm-6
-      .btn.btn-block.btn-default
-        %i(class='glyphicon glyphicon-zoom-in')
-        = link_to(t('.list_events', default: 'Review existing calendar events'), events_path)
-
 - week_reminders = signature_week_reminders(current_user.therapist)
 - if week_reminders.any?
-  .row
-    .col-sm-12
-      %table.table
-        %caption Missing signature reminders for the coming week
-        %thead
-          %tr
-            %th Day
-            %th Count
-            %th Name
-            %th Missing Sig. Dates
-        %tbody
-          - week_reminders.each do |day_reminder|
-            = render 'therapists/reminders', date: day_reminder.first, reminders: day_reminder.last
+  %table.table
+    %caption Signature reminders for the coming week
+    %thead
+      %tr
+        %th Day
+        %th Count
+        %th Name
+        %th Missing Sig. Dates
+    %tbody
+      - week_reminders.each do |day_reminder|
+        = render 'therapists/reminders', date: day_reminder.first, reminders: day_reminder.last
 
 - if @activities.any?
-  .row
-    .col-sm-12
-      %h4 Recent activities
-      = render 'notifications/notifications', notifications: @activities
+  %h4 Recent activities
+  = render 'notifications/notifications', notifications: @activities
