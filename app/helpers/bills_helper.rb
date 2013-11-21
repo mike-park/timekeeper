@@ -73,9 +73,9 @@ EOF
     table << ['Behandlungsart', 'Zahl der Fördereinheiten', 'Preis je Einheit', 'Summe']
     bp = BillPresenter.new(bill)
     bp.services(all: true).each do |s|
-      table << [s.name, s.qty, number_to_euro(s.price), number_to_euro(s.total)]
+      table << [s.name, s.qty, prawn_euro(s.price), prawn_euro(s.total)]
     end
-    table << ['Gesamtbetrag', nil, nil, number_to_euro(bill.total)]
+    table << ['Gesamtbetrag', nil, nil, prawn_euro(bill.total)]
     table
   end
 
@@ -134,6 +134,6 @@ EOF
   end
 
   def prawn_euro(value)
-    number_to_euro(value).gsub(/\s/, Prawn::Text::NBSP)
+    number_to_currency(value).to_s.gsub(/\s/, Prawn::Text::NBSP)
   end
 end
