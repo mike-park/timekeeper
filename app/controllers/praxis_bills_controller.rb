@@ -29,6 +29,6 @@ class PraxisBillsController < InheritedResources::Base
   private
 
   def resource_params
-    params.require(:praxis_bill).permit(:billed_on, :number, :note, :bill_ids)
+    params.require(:praxis_bill).permit(:billed_on, :number, :note, :bill_ids => [])
   end
 end
