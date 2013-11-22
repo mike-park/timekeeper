@@ -70,6 +70,10 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
     $scope.billItem.editing = false
     loadBill()
 
+
+  $scope.addBillItem = (clientId) ->
+    $scope.editBillItem({clientId: clientId})
+
   $scope.editBillItem = (billItem) ->
     if billItem
       $scope.billItem = angular.copy(billItem)
@@ -88,6 +92,11 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
   $scope.resetBillItem = ->
     $scope.billItem.editing = false
 
+  $scope.clickBillItem = (editing, billItem) ->
+    if editing
+      $scope.editBillItem(billItem)
+    else
+      billItem.included = !billItem.included
 
   loadBill = ->
     Bill.get('new').then (bill) ->

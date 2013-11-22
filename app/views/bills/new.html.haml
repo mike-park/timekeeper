@@ -1,26 +1,36 @@
 %div(ng-controller='newBillCtrl')
   %form.form-horizontal
-    .form-group
-      %label.col-sm-2.control-label Billed On
-      .col-sm-10
-        %input.form-control(name='billedOn' ng-model='bill.billedOn' ng-required='true' datepicker-popup="dd.MM.yyyy")
-    .form-group
-      %label.col-sm-2.control-label Number
-      .col-sm-10
-        %input.form-control(name='number' ng-model='bill.number' ng-required='true')
+    %fieldset
+      %legend Step 1: Verify Bill Information
+      .form-group
+        %label.col-sm-2.control-label Billed On
+        .col-md-3.col-sm-3
+          %input.form-control(name='billedOn' ng-model='bill.billedOn' ng-required='true' datepicker-popup="dd.MM.yyyy")
+      .form-group
+        %label.col-sm-2.control-label Number
+        .col-md-3.col-sm-3
+          %input.form-control(name='number' ng-model='bill.number' ng-required='true')
 
+  %legend Step 2: Verify activities
   .row
-    .col-sm-3
-      %button(ng-click="editBillItem()") Add New Event
-    .col-sm-3
-      %button(ng-click="markAll(true)") Include All
-    .col-sm-3
-      %button(ng-click="markAll(false)") Exclude All
+    .col-md-6
+      %p
+        Review the activities below. Click an activity to toggle whether it is
+        %em included
+        or
+        %em excluded
+        from this bill. Click the column headers to include or exclude all activities.
+    .col-md-6
+      %p
+        %button.btn.btn-primary(ng-click="editBillItem()")
+          %i.glyphicon.glyphicon-plus
+          Add a New Activity
+
 
   %script(id='billItemTemplate.html' type='text/ng-template')
     .modal-header
-      %h3(ng-show="billItem.eventId") Edit Event
-      %h3(ng-hide="billItem.eventId") Create Event
+      %h3(ng-show="billItem.eventId") Edit an Activity
+      %h3(ng-hide="billItem.eventId") Add an Activity
     .modal-body
       %form(name='billItemForm')
         %input(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client" collection='clients' ng-required="true")
@@ -34,25 +44,33 @@
         {{billItem}}
 
 
-  %ol
-    %li(ng-repeat="clientId in clientOrder")
-      %h3(ng-bind="clientHash[clientId].text" ng-dblclick="editBillItem({clientId: clientId})" )
-      .row
-        .col-sm-6
-          %small
-            %em.col-sm-12.text-center Include
-          .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}')
-            .col-xs-12
-              .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=false")
-                %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
-                {{billItem.category.text}}
-              %span(ng-click="editBillItem(billItem)" ) Edit
-        .col-sm-6
-          %small
-            %em.col-sm-12.text-center Exclude
-          .row(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}')
-            .col-xs-12
-              .bill-item(style="background-color: {{billItem.category.color}}" ng-click="billItem.included=true")
-                %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
-                {{billItem.category.text}}
-              %span(ng-click="editBillItem(billItem)" ) Edit
+  .row
+    .col-sm-4
+    .col-sm-4
+      .btn.btn-default(ng-click="markAll(true)") Included
+    .col-sm-4
+      .btn.btn-default(ng-click="markAll(false)") Excluded
+
+  .row.panel.panel-default(ng-repeat="clientId in clientOrder")
+    .panel-body
+      .col-sm-4
+        .h3
+          {{clientHash[clientId].text}}
+          .btn.btn-default(ng-click="addBillItem(clientId)" )
+            %i.glyphicon.glyphicon-plus
+          .btn.btn-default(ng-click="editEnabled=!editEnabled" ng-class="{active: editEnabled}" )
+            %i.glyphicon.glyphicon-edit
+      .col-sm-4.col-xs-6
+        .bill-item(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}')
+          .bill-item-content(style="background-color: {{billItem.category.color}}"
+                               ng-click="clickBillItem(editEnabled, billItem)")
+            %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
+            {{billItem.category.text}}
+            %i.pull-right.glyphicon.glyphicon-edit.pull-right(ng-if="editEnabled")
+      .col-sm-4.col-xs-6.vertical-line
+        .bill-item(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}')
+          .bill-item-content(style="background-color: {{billItem.category.color}}"
+                               ng-click="clickBillItem(editEnabled, billItem)")
+            %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
+            {{billItem.category.text}}
+            %i.pull-right.glyphicon.glyphicon-edit.pull-right(ng-if="editEnabled")

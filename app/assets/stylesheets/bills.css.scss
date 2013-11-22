@@ -6,9 +6,20 @@
 }
 
 .bill-item {
+  padding: 5px 0;
+}
+
+.bill-item-content {
   display: inline-block;
-  width: 400px;
+  width: 100%;
   color: #fff;
-  padding: 2px;
-  margin: 1px;
+  padding: 10px;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0 ,0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0 ,0.05);
+}
+
+.vertical-line {
+  border-left: 1px solid #cccccc;
 }
