@@ -1,19 +1,17 @@
 controllers = angular.module 'timekeeper.controllers'
 
 controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', ($scope, Bill, Client, User, Event, $modal) ->
-  # models updated from ui
-  $scope.current =
-    clients: {}
-    bill: {}
-    names: []
-    eventCounter: 0
+
+  # start up
+  $scope.inProgress = true
 
   $scope.categories = []
   $scope.clients = []
-  $scope.event = {}
+  $scope.bill = {}
+  $scope.clientOrder = []
+  $scope.billItemsByEventId = {}
 
   User.get('current').then (user) ->
-    $scope.current.therapist = user.therapist
     $scope.categories = user.eventCategories
   , (error) ->
     $scope.$emit 'showError',
@@ -98,6 +96,23 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
     else
       billItem.included = !billItem.included
 
+  $scope.matchedBillItems = (included) ->
+    items = []
+    return [] unless $scope.bill.billItems
+    for item in $scope.bill.billItems
+      items.push(item) if item.included == included
+    items
+
+  presetIncluded = (key) ->
+    existingBillItem = $scope.billItemsByEventId[key.eventId]
+    currentMonth = moment().month()
+    key.included = if existingBillItem?
+      existingBillItem.included
+    else if moment(key.occurredOn).month() == currentMonth
+      true
+    else
+      false
+
   loadBill = ->
     Bill.get('new').then (bill) ->
       console.log "bill", bill
@@ -117,11 +132,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       $scope.billItemsByEventId ||= {}
 
       for key in bill.billItems
-        # carry over previous state of included or preset to true
-        key.included = if $scope.billItemsByEventId[key.eventId]
-          $scope.billItemsByEventId[key.eventId].included
-        else
-          true
+        presetIncluded(key)
         key.category = $scope.eventCategoryHash[key.eventCategoryId]
         billItemsByEventId[key.eventId] = key
         clientOrder.push(key.clientId) unless billItemsByClient[key.clientId]
@@ -132,9 +143,12 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       $scope.billItemsByClient = billItemsByClient
       $scope.clientOrder = clientOrder
 
-      $scope.bill ||= bill
+      $scope.bill.billedOn ||= bill.billedOn
+      $scope.bill.number ||= bill.number
       $scope.bill.billItems = bill.billItems
       $scope.therapist = bill.therapist
+
+      $scope.inProgress = false
 
   loadBill()
 ]

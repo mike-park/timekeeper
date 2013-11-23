@@ -20,6 +20,24 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0 ,0.05);
 }
 
-.vertical-line {
+.bill-item-buttons {
+  float: right;
+  display: inline-block;
+  margin: -6px 0;
+  .btn {
+    margin-left: 15px;
+  }
+}
+.bill-items-excluded {
   border-left: 1px solid #cccccc;
+  opacity: 0.4;
+  filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+
+.bill-step {
+  padding-bottom: 30px;
+}
+
+.bill-border {
+  border: 1px solid #000000;
 }
