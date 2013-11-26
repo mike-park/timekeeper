@@ -10,7 +10,6 @@ describe Bill do
       expect(bill).to_not be_valid
       bill.number = bill.generate_number
       expect(bill).to be_valid
-      ap bill
     end
   end
 end
