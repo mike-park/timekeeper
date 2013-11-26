@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'showEventsCtrl', ['$scope', 'Client', 'Therapist', 'Event', 'EventCategory', 'User', ($scope, Client, Therapist, Event, EventCategory, User) ->
+controllers.controller 'showEventsCtrl', ['$scope', 'Client', 'Therapist', 'Event', 'EventCategory', 'User', 'errorBox', ($scope, Client, Therapist, Event, EventCategory, User, errorBox) ->
   # models updated from ui
   $scope.current =
     client: null
@@ -50,10 +50,7 @@ controllers.controller 'showEventsCtrl', ['$scope', 'Client', 'Therapist', 'Even
     $scope.categories = user.eventCategories
     $scope.inProgress = false
   , (error) ->
-    $scope.$emit 'showError',
-      title: 'Failed to load calendar'
-      description: 'Sorry, I could not load all the information needed for the calendar. Please try again.'
-      details: [JSON.stringify(error)]
+    errorBox.open 'Failed to load calendar', 'Sorry, I could not load all the information needed for the calendar. Please try again.', [JSON.stringify(error)]
 
   getEvents = (start, end, callback) ->
 #    console?.log "getEvents", start, end

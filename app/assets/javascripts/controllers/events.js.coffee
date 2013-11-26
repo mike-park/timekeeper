@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'eventsCtrl', ['$scope', 'Client', 'Therapist', 'Event', 'EventCategory', 'User', ($scope, Client, Therapist, Event, EventCategory, User) ->
+controllers.controller 'eventsCtrl', ['$scope', 'Client', 'Therapist', 'Event', 'EventCategory', 'User', 'errorBox', ($scope, Client, Therapist, Event, EventCategory, User, errorBox) ->
   # models updated from ui
   $scope.current =
     client: null
@@ -55,10 +55,7 @@ controllers.controller 'eventsCtrl', ['$scope', 'Client', 'Therapist', 'Event', 
     $scope.current.category = user.eventCategories[0]
     $scope.inProgress = false
   , (error) ->
-    $scope.$emit 'showError',
-      title: 'Failed to load calendar'
-      description: 'Sorry, I could not load all the information needed for the calendar. Please try again.'
-      details: [JSON.stringify(error)]
+    errorBox.open 'Failed to load calendar', 'Sorry, I could not load all the information needed for the calendar. Please try again.', [JSON.stringify(error)]
 
   createEventOn = (date, allDay) ->
     console?.log "createEventOn", date, allDay
@@ -74,10 +71,7 @@ controllers.controller 'eventsCtrl', ['$scope', 'Client', 'Therapist', 'Event', 
         console?.log "created", event
         $scope.reloadEvents()
       , (error) ->
-        $scope.$emit 'showError',
-          title: 'Error creating new event'
-          description: 'Your event could not be created. Please try again.'
-          details: [JSON.stringify error]
+        errorBox.open 'Error creating new event', 'Your event could not be created. Please try again.',[JSON.stringify error]
         console?.log "failed: ", error
 
   createDefaultEventOn = (date, allDay, jsEvent, view) ->

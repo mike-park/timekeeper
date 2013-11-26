@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'listClientsCtrl', ['$scope', 'Client', ($scope, Client) ->
+controllers.controller 'listClientsCtrl', ['$scope', 'Client', 'errorBox', ($scope, Client, errorBox) ->
   $scope.current =
     client: null
 
@@ -25,10 +25,7 @@ controllers.controller 'listClientsCtrl', ['$scope', 'Client', ($scope, Client) 
     Client.get(client.id).then (client) ->
       $scope.client = client
     , (error) ->
-      $scope.$emit 'showError',
-        title: 'Error loading client'
-        description: 'A problem occurred.  Please try again.'
-        details: [JSON.stringify(error)]
+      errorBox.open 'Error loading client', 'A problem occurred.  Please try again.', [JSON.stringify(error)]
 
   $scope.$watch 'showAllClients', ->
     reloadClients()

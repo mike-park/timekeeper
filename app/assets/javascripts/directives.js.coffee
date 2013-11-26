@@ -1,6 +1,6 @@
 #= require_self
 
-directives = angular.module('timekeeper.directives', ['timekeeper.templates', 'messageBox'])
+directives = angular.module('timekeeper.directives', ['timekeeper.templates', 'messageBox', 'errorBox'])
 
 directives.directive 'tkEventCalendar', ['ui.config', '$parse', (uiConfig, $parse) ->
   uiConfig.uiCalendar = uiConfig.uiCalendar || {}
@@ -122,34 +122,6 @@ directives.directive 'tkInProgress', ['$rootScope', '$timeout', 'INPROGRESS_TEMP
           hide()
 ]
 
-directives.directive 'tkError', ['$rootScope', 'ERROR_TEMPLATE', ($rootScope, TEMPLATEURL) ->
-  factory =
-    restrict: 'E'
-    templateUrl: TEMPLATEURL
-    scope: true
-    replace: true
-    link: (scope, elm, $attrs) ->
-      scope.onToggleShowDetails = ->
-        scope.showDetails = !scope.showDetails
-        scope.detailButtonText = if scope.showDetails
-          'Less Details'
-        else
-          'More Details'
-
-      $rootScope.$on 'showError', (event, options) ->
-        scope.$emit 'hideProgress'
-        scope.title = options.title
-        scope.description = options.description
-        scope.details = options.details || []
-        scope.showDetails = true
-        scope.onToggleShowDetails()
-        scope.hasDetails = scope.details.length > 0
-        elm.modal('show')
-
-      $rootScope.$on 'hideError', (event, options = {}) ->
-        elm.modal('hide')
-]
-
 directives.directive 'tkEventPopup', ['EVENT_POPUP_TEMPLATE', (TEMPLATEURL) ->
   factory =
     restrict: 'E'
@@ -166,7 +138,7 @@ directives.directive 'tkEventPopover', ['$rootScope', '$compile', '$document', (
     scope:
       onRemoveEvent: '&'
 
-    controller: ['$scope', ($scope) ->
+    controller: ['$scope', 'errorBox', ($scope, errorBox) ->
       $scope.removeEvent = ->
         $scope.close()
         #console?.log "removeEvent", $scope.event
@@ -174,10 +146,7 @@ directives.directive 'tkEventPopover', ['$rootScope', '$compile', '$document', (
           #console?.log "success"
           $scope.onRemoveEvent()
         , (error) ->
-          $scope.$emit 'showError',
-                      title: 'Error deleting event'
-                      description: 'Your event could not be deleted. Please try again.'
-                      details: [JSON.stringify error]
+          errorBox.open 'Error deleting event', 'Your event could not be deleted. Please try again.', [JSON.stringify error]
           console?.log "failed:", error
     ]
 
