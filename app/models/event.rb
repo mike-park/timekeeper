@@ -34,7 +34,7 @@ class Event < ActiveRecord::Base
   end
 
   def <=>(other)
-    client <=> other.client
+    "#{client_full_name}#{occurred_on}" <=> "#{other.client_full_name}#{other.occurred_on}"
   end
 
   def price

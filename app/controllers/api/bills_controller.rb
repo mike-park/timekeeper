@@ -3,19 +3,25 @@ class Api::BillsController < ApplicationController
   inherit_resources
 
   def new
-    render json: new_bill_for(current_user)
+    render json: build_resource
+  end
+
+  def edit
+    render json: resource
   end
 
   private
 
-  def new_bill_for(user)
-    @bill ||= begin
-                therapist = user.therapist
-                bill = therapist.bills.build(billed_on: Date.current)
-                bill.bill_items = therapist.unbilled_items
-                bill.number = bill.generate_number
-                bill
-    end
+  def build_resource
+    bill = Bill.new
+    bill.therapist ||= therapist
+    bill.billed_on ||= Date.current
+    bill.number ||= bill.generate_number
+    @bill = bill
+  end
+
+  def therapist
+    current_user.therapist
   end
 
   def resource_params

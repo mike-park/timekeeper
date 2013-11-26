@@ -1,23 +1,13 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', 'errorBox', '$window', ($scope, Bill, Client, User, Event, $modal, errorBox, $window) ->
+controllers.controller 'billFormCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', 'errorBox', '$window', ($scope, Bill, Client, User, Event, $modal, errorBox, $window) ->
 
   # start up
   $scope.inProgress = true
 
-  $scope.categories = []
-  $scope.clients = []
   $scope.bill = {}
   $scope.clientOrder = []
   $scope.billItemsByEventId = {}
-
-  User.get('current').then (user) ->
-    $scope.categories = user.eventCategories
-  , (error) ->
-    errorBox.open 'Failed to load user info', 'Sorry, I could not load all the information needed for creating a bill. Please try again.', [JSON.stringify(error)]
-
-  Client.query({}).then (clients) ->
-    $scope.clients = clients
 
   $scope.deleteEvent = (event) ->
     console.log "delete", event
@@ -60,7 +50,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
   $scope.reloadEvents = ->
     console.log "reloadEvents"
     $scope.billItem.editing = false
-    loadBill(false)
+    $scope.loadBill($scope.bill.id)
 
 
   $scope.addBillItem = (clientId) ->
@@ -97,6 +87,10 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       items.push(item) if item.included == included
     items
 
+  $scope.activeClientIds = ->
+    items = $scope.matchedBillItems(true)
+    _.chain(items).pluck('clientId').uniq().value()
+
   createAttributesList = (items) ->
     add = ({eventId: item.eventId} for item in items when item.included and !item.id)
     subtract = ({id: item.id, '_destroy': 1} for item in items when !item.included and item.id)
@@ -122,56 +116,79 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       console?.log "saveBill failed", error
 
 
-  presetIncluded = (key) ->
-    existingBillItem = $scope.billItemsByEventId[key.eventId]
+  mergePreviousIncluded = (items) ->
+    for item in items
+      existingBillItem = $scope.billItemsByEventId[item.eventId]
+      item.included = existingBillItem.included if existingBillItem?
+
+  presetIncludedForNewBill = (items) ->
     currentMonth = moment().month()
-    key.included = if existingBillItem?
-      existingBillItem.included
-    else if moment(key.occurredOn).month() == currentMonth
-      true
+    for item in items
+      item.included = if moment(item.occurredOn).month() == currentMonth
+        true
+      else
+        false
+
+  presetIncludedForEditBill = (items) ->
+    for item in items
+      item.included = if item.id
+        true
+      else
+        false
+
+  createHash = (array, key = 'id') ->
+    hash = {}
+    for item in array
+      hash[item[key]] = item
+    hash
+
+  mergeCategory = (items) ->
+    for item in items
+      item.category = $scope.eventCategoryHash[item.eventCategoryId]
+
+  processBill = (bill) ->
+    console.log "processBill", bill
+
+    $scope.eventCategoryHash ||= createHash(bill.eventCategories)
+    $scope.clientHash ||= createHash(bill.clients)
+    $scope.therapist = bill.therapist
+
+    if bill.id
+      presetIncludedForEditBill(bill.billItems)
     else
-      false
+      presetIncludedForNewBill(bill.billItems)
 
-  loadBill = (firstTime) ->
-    Bill.get('new').then (bill) ->
-      console.log "bill", bill
-      hash = {}
-      for key in bill.clients
-        hash[key.id] = key
-      $scope.clientHash = hash
+#   merge local changes
+    mergePreviousIncluded(bill.billItems)
+    mergeCategory(bill.billItems)
+    bill.billedOn ||= $scope.bill.billedOn
+    bill.number ||= $scope.bill.number
 
-      hash = {}
-      for key in bill.eventCategories
-        hash[key.id] = key
-      $scope.eventCategoryHash = hash
+    $scope.billItemsByEventId = createHash(bill.billItems, 'eventId')
 
-      billItemsByEventId = {}
-      billItemsByClient = {}
-      clientOrder = []
-      $scope.billItemsByEventId ||= {}
+    billItemsByClient = {}
+    clientOrder = []
+    for key in bill.billItems
+      clientOrder.push(key.clientId) unless billItemsByClient[key.clientId]
+      billItemsByClient[key.clientId] ||= []
+      billItemsByClient[key.clientId].push(key)
+    $scope.billItemsByClient = billItemsByClient
+    $scope.clientOrder = clientOrder
 
-      for key in bill.billItems
-        presetIncluded(key)
-        key.category = $scope.eventCategoryHash[key.eventCategoryId]
-        billItemsByEventId[key.eventId] = key
-        clientOrder.push(key.clientId) unless billItemsByClient[key.clientId]
-        billItemsByClient[key.clientId] ||= []
-        billItemsByClient[key.clientId].push(key)
+    $scope.bill = bill
 
-      $scope.billItemsByEventId = billItemsByEventId
-      $scope.billItemsByClient = billItemsByClient
-      $scope.clientOrder = clientOrder
+    $scope.inProgress = false
 
-      unless firstTime
-        bill.billedOn = $scope.bill.billedOn
-        bill.number = $scope.bill.number
+  $scope.loadBill = (id) ->
+    console.log "loadBill", id
+    id = if id
+      id + "/edit"
+    else
+      'new'
+    Bill.get(id).then (bill) ->
+      processBill(bill)
+    , (error) ->
+      errorBox.open 'Error loading bill', 'Bill could not be loaded. Current state is inconsistent. Please try again.', [JSON.stringify error]
+      console?.log "loadBill failed", error
 
-      $scope.bill = bill
-      $scope.therapist = bill.therapist
-
-      $scope.inProgress = false
-
-  loadBill(true)
 ]
-
-
