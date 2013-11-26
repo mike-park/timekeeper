@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', ($scope, Bill, Client, User, Event, $modal) ->
+controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', 'errorBox', ($scope, Bill, Client, User, Event, $modal, errorBox) ->
 
   # start up
   $scope.inProgress = true
@@ -14,10 +14,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
   User.get('current').then (user) ->
     $scope.categories = user.eventCategories
   , (error) ->
-    $scope.$emit 'showError',
-      title: 'Failed to load user info'
-      description: 'Sorry, I could not load all the information needed for creating a bill. Please try again.'
-      details: [JSON.stringify(error)]
+    errorBox.open 'Failed to load user info', 'Sorry, I could not load all the information needed for creating a bill. Please try again.', [JSON.stringify(error)]
 
   Client.query({}).then (clients) ->
     $scope.clients = clients
@@ -39,10 +36,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       console?.log "success", event
       $scope.reloadEvents()
     , (error) ->
-      $scope.$emit 'showError',
-        title: 'Error saving event'
-        description: 'Your event could not be saved. Please try again.'
-        details: [JSON.stringify error]
+      errorBox.open 'Error saving event', 'Your event could not be saved. Please try again.', [JSON.stringify error]
       console?.log "failed", error
 
   UTCtoLocalTime = (utc) ->
@@ -66,7 +60,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
   $scope.reloadEvents = ->
     console.log "reloadEvents"
     $scope.billItem.editing = false
-    loadBill()
+    loadBill(false)
 
 
   $scope.addBillItem = (clientId) ->
@@ -103,6 +97,20 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       items.push(item) if item.included == included
     items
 
+  $scope.saveBill = ->
+    bill = $scope.bill
+    action = if bill.id
+      bill.update
+    else
+      bill.create
+    action.call(bill).then (bill) ->
+      console?.log "success", bill
+#      redirect to show
+    , (error) ->
+      errorBox.open 'Error saving bill', 'Your bill could not be saved. Please try again.', [JSON.stringify error]
+      console?.log "saveBill failed", error
+
+
   presetIncluded = (key) ->
     existingBillItem = $scope.billItemsByEventId[key.eventId]
     currentMonth = moment().month()
@@ -113,7 +121,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
     else
       false
 
-  loadBill = ->
+  loadBill = (firstTime) ->
     Bill.get('new').then (bill) ->
       console.log "bill", bill
       hash = {}
@@ -143,14 +151,16 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       $scope.billItemsByClient = billItemsByClient
       $scope.clientOrder = clientOrder
 
-      $scope.bill.billedOn ||= bill.billedOn
-      $scope.bill.number ||= bill.number
-      $scope.bill.billItems = bill.billItems
+      unless firstTime
+        bill.billedOn = $scope.bill.billedOn
+        bill.number = $scope.bill.number
+
+      $scope.bill = bill
       $scope.therapist = bill.therapist
 
       $scope.inProgress = false
 
-  loadBill()
+  loadBill(true)
 ]
 
 
