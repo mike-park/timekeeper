@@ -105,6 +105,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
   $scope.saveBill = ->
     bill = new Bill
       id: $scope.bill.id
+      therapistId: $scope.therapist.id
       billedOn: $scope.bill.billedOn
       number: $scope.bill.number
       billItemsAttributes: createAttributesList $scope.bill.billItems
@@ -115,7 +116,7 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
     console.log "saving", bill
     action.call(bill).then (bill) ->
       console?.log "success", bill, bill.$url()
-      $window.location.href = bill.$url()
+      $window.location.href = "/bills/" + bill.id
     , (error) ->
       errorBox.open 'Error saving bill', 'Your bill could not be saved. Please try again.', [JSON.stringify error]
       console?.log "saveBill failed", error

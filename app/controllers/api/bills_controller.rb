@@ -2,10 +2,6 @@ class Api::BillsController < ApplicationController
   respond_to :json
   inherit_resources
 
-  def show
-    render json: resource, serializer: BillshowSerializer, root: false
-  end
-
   def new
     render json: new_bill_for(current_user)
   end
@@ -23,6 +19,7 @@ class Api::BillsController < ApplicationController
   end
 
   def resource_params
-    params.require(:bill).permit(:id, :billed_on, :number, bill_items_attributes: [:id, :event_id, :_destroy])
+    params.require(:bill).permit(:id, :billed_on, :therapist_id, :number,
+                                 bill_items_attributes: [:id, :event_id, :_destroy])
   end
 end
