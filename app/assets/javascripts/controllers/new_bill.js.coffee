@@ -1,6 +1,6 @@
 controllers = angular.module 'timekeeper.controllers'
 
-controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', 'errorBox', ($scope, Bill, Client, User, Event, $modal, errorBox) ->
+controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Event', '$modal', 'errorBox', '$window', ($scope, Bill, Client, User, Event, $modal, errorBox, $window) ->
 
   # start up
   $scope.inProgress = true
@@ -97,15 +97,25 @@ controllers.controller 'newBillCtrl', ['$scope', 'Bill', 'Client', 'User', 'Even
       items.push(item) if item.included == included
     items
 
+  createAttributesList = (items) ->
+    add = ({eventId: item.eventId} for item in items when item.included and !item.id)
+    subtract = ({id: item.id, '_destroy': 1} for item in items when !item.included and item.id)
+    add.concat subtract
+
   $scope.saveBill = ->
-    bill = $scope.bill
-    action = if bill.id
-      bill.update
+    bill = new Bill
+      id: $scope.bill.id
+      billedOn: $scope.bill.billedOn
+      number: $scope.bill.number
+      billItemsAttributes: createAttributesList $scope.bill.billItems
+    if $scope.bill.id
+      action = $scope.bill.update
     else
-      bill.create
+      action = $scope.bill.create
+    console.log "saving", bill
     action.call(bill).then (bill) ->
-      console?.log "success", bill
-#      redirect to show
+      console?.log "success", bill, bill.$url()
+      $window.location.href = bill.$url()
     , (error) ->
       errorBox.open 'Error saving bill', 'Your bill could not be saved. Please try again.', [JSON.stringify error]
       console?.log "saveBill failed", error

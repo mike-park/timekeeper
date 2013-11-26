@@ -21,4 +21,8 @@ class Api::BillsController < ApplicationController
                 bill
     end
   end
+
+  def resource_params
+    params.require(:bill).permit(:id, :billed_on, :number, bill_items_attributes: [:id, :event_id, :_destroy])
+  end
 end
