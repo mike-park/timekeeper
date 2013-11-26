@@ -7,6 +7,10 @@
 
 
 .row
+  .col-sm-1
+    = new_link 'Add Bill', new_therapist_bill_path(parent)
+
+.row
   .col-sm-8
     %table.table.table-responsive
       %caption Bills
@@ -24,7 +28,3 @@
           = td_money(bill.total)
           %td= edit_link edit_therapist_bill_path(parent, bill)
           %td= destroy_link([parent, bill])
-
-.row
-  .col-sm-1
-    = new_link 'Add Bill', new_therapist_bill_path(parent)
