@@ -16,7 +16,7 @@ class Therapist < ActiveRecord::Base
     full_name
   end
 
-  def unbilled_items(before = Date.tomorrow)
+  def unbilled_items(before = Date.current.end_of_month)
     unbilled_events = events.includes(:event_category).unbilled(before).by_name
     BillItem.from_events(unbilled_events)
   end
