@@ -161,8 +161,8 @@ controllers.controller 'billFormCtrl', ['$scope', 'Bill', 'Client', 'User', 'Eve
 #   merge local changes
     mergePreviousIncluded(bill.billItems)
     mergeCategory(bill.billItems)
-    bill.billedOn ||= $scope.bill.billedOn
-    bill.number ||= $scope.bill.number
+    bill.billedOn = $scope.bill.billedOn if $scope.bill.billedOn
+    bill.number = $scope.bill.number if $scope.bill.number
 
     $scope.billItemsByEventId = createHash(bill.billItems, 'eventId')
 
