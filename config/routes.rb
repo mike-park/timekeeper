@@ -3,7 +3,7 @@ Timekeeper::Application.routes.draw do
 
   resources :events
   resources :therapists do
-    resources :bills
+    resources :bills, except: [:update, :create]
   end
   resources :bills, only: [:show]
   resources :event_categories
@@ -16,7 +16,7 @@ Timekeeper::Application.routes.draw do
   resources :torgs
 
   namespace :api do
-    resources :bills
+    resources :bills, only: [:new, :edit, :update, :create]
     resources :events
     resources :clients
     resources :users
