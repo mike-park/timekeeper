@@ -62,7 +62,7 @@ controllers.controller 'billFormCtrl', ['$scope', 'Bill', 'Client', 'User', 'Eve
       $scope.billItem.client = $scope.clientHash[billItem.clientId]
       $scope.billItem.category = $scope.eventCategoryHash[billItem.eventCategoryId]
     else
-      $scope.billItem = {}
+      $scope.billItem ||= {}
     modal = $modal.open
       templateUrl: 'billItemTemplate.html'
       scope: $scope
