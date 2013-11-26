@@ -27,14 +27,31 @@ class Bill < ActiveRecord::Base
   end
 
   def generate_number
-    [therapist_abbrv, Date.current.to_s(:bill)].compact.join('-')
+    count = 0
+    begin
+      number = format_number(count)
+      count += 1
+    end while number_exists?(number)
+    number
   end
 
   def total
-    @total ||= bill_items.map(&:price).inject(0) {|memo, price| memo + price}
+    @total ||= bill_items.map(&:price).inject(0) { |memo, price| memo + price }
   end
 
   def title
     "Bill #{number}"
+  end
+
+  private
+
+  def format_number(count)
+    number = [therapist_abbrv, Date.current.to_s(:bill)].compact.join('-')
+    number += sprintf("-%03d", count) if count && count > 0
+    number
+  end
+
+  def number_exists?(number)
+    Bill.where(therapist_id: therapist_id, number: number).count > 0
   end
 end

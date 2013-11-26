@@ -1,5 +1,16 @@
 require 'spec_helper'
 
 describe Bill do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "unique numbers" do
+    it "should not reuse numbers" do
+      bill = FactoryGirl.create(:bill)
+      bill.number = bill.generate_number
+      bill.save!
+      bill = bill.dup
+      expect(bill).to_not be_valid
+      bill.number = bill.generate_number
+      expect(bill).to be_valid
+      ap bill
+    end
+  end
 end
