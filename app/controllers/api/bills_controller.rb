@@ -3,7 +3,7 @@ class Api::BillsController < ApplicationController
   inherit_resources
 
   def new
-    render json: build_resource
+    render json: new_resource
   end
 
   def edit
@@ -12,12 +12,12 @@ class Api::BillsController < ApplicationController
 
   private
 
-  def build_resource
+  def new_resource
     bill = Bill.new
     bill.therapist ||= therapist
     bill.billed_on ||= Date.current
     bill.number ||= bill.generate_number
-    @bill = bill
+    bill
   end
 
   def therapist
