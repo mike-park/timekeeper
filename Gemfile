@@ -52,8 +52,8 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem "rspec-rails", ">= 2.11.4"
-  gem "factory_girl_rails", ">= 4.1.0"
+  gem "rspec-rails", "~> 2.14.0"
+  gem "factory_girl_rails", "~> 4.3.0"
   gem 'dotenv-rails', '~> 0.8.0'
 end
 
@@ -69,9 +69,10 @@ group :development do
 end
 
 group :test do
-  gem "capybara", ">= 2.0.1"
-  gem "database_cleaner", ">= 0.9.1"
-  gem "email_spec", ">= 1.4.0"
+  gem "capybara", "~> 2.1.0"
+  gem "database_cleaner", "~> 1.2.0"
+  # phantomjs headless browser
+  gem 'poltergeist', '~> 1.4.1'
 end
 
 group :production do
