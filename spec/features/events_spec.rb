@@ -1,30 +1,15 @@
 require 'spec_helper'
 
 describe 'Events', js: true do
-  let(:user) { FactoryGirl.create(:user_with_therapist) }
-  let(:therapist_list) { user.therapist.abbrv }
-  let(:therapy) { FactoryGirl.create(:event_category, abbrv: 'et', title: 'einzel therapie') }
-  let(:client) { FactoryGirl.create(:client, first_name: 'John', last_name: 'Smith',
-                                    therapist_list: therapist_list) }
-  let(:therapy1) { FactoryGirl.create(:event_category, abbrv: 'gt', title: 'gruppen therapie') }
-  let(:client1) { FactoryGirl.create(:client, first_name: 'Sally', last_name: 'Jax',
-                                     therapist_list: therapist_list) }
-
-  def setup_models
-    therapy
-    therapy1
-    client
-    client1
-  end
+  let(:models) { basic_models }
+  let(:user) { models[:user] }
+  let(:therapy) { models[:therapies][0] }
+  let(:client) { models[:clients][0] }
+  let(:therapy1) { models[:therapies][1] }
+  let(:client1) { models[:clients][1] }
 
   before do
-    setup_models
     login_user(user)
-  end
-
-  def select_client(name)
-    find('#s2id_select_client .select2-chosen').click
-    find('.select2-result-label', text: name).click
   end
 
   def select_therapy(name)
@@ -69,10 +54,6 @@ describe 'Events', js: true do
     expect(event.occurred_on).to eq(Date.current.at_beginning_of_week)
     expect(event.event_category_id).to eq(therapy.id)
     expect(event.therapist_id).to eq(user.therapist_id)
-  end
-
-  def debug_page
-    page.driver.debug
   end
 
   def find_popover_title(title)

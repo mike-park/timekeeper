@@ -42,13 +42,14 @@
     .modal-body
       %form(name='form')
         .form-group
-          %input(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client"
+          %input#select-client(tk-select2='' data-placeholder="Select Client" ng-model="billItem.client"
                  collection='bill.clients' ng-required="true" )
         .form-group
-          %input(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category'
+          %input#select-therapy(tk-select2='' data-placeholder='Select Activity' ng-model='billItem.category'
                  collection='bill.eventCategories' ng-required="true")
         .form-group
-          %datepicker.bill-border(show-weeks="false" ng-model="billItem.occurredOn" ng-required="true")
+          %datepicker.bill-border(name='occurredOn' show-weeks="false"
+                                  ng-model="billItem.occurredOn" ng-required="true")
     .modal-footer
       %button(class='btn btn-default' ng-click="$dismiss()") Cancel
       %button(class='btn btn-primary' ng-click='$close(billItem)' ng-disabled="form.$invalid") Submit
@@ -68,25 +69,27 @@
       %i.glyphicon.glyphicon-plus
       icon.
 
-    .panel.panel-default(ng-repeat="clientId in clientOrder")
+    .panel.panel-default(ng-repeat="clientId in clientOrder" id="client-{{clientId}}")
       .panel-heading
         {{clientHash[clientId].text}}
         .bill-item-buttons
-          %button.btn.btn-default(ng-click="addBillItem(clientId)" )
+          %button.btn.btn-default.add-event(ng-click="addBillItem(clientId)" )
             %i.glyphicon.glyphicon-plus
-          %button.btn.btn-default(ng-click="editEnabled=!editEnabled" ng-class="{active: editEnabled}" )
+          %button.btn.btn-default.edit-event(ng-click="editEnabled=!editEnabled" ng-class="{active: editEnabled}" )
             %i.glyphicon.glyphicon-edit
       .panel-body
         .row
           .col-sm-6.col-xs-6
-            .bill-item(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}')
+            .bill-item.event-included(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:true}'
+                       id="event-{{billItem.eventId}}")
               .bill-item-content(style="background-color: {{billItem.category.color}}"
                                    ng-click="clickBillItem(editEnabled, billItem)")
                 %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')
                 {{billItem.category.text}}
                 %i.pull-right.glyphicon.glyphicon-edit.pull-right(ng-if="editEnabled")
           .col-sm-6.col-xs-6.bill-items-excluded
-            .bill-item(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}')
+            .bill-item(ng-repeat='billItem in billItemsByClient[clientId] | filter:{included:false}'
+                       id="event-{{billItem.eventId}}")
               .bill-item-content(style="background-color: {{billItem.category.color}}"
                                    ng-click="clickBillItem(editEnabled, billItem)")
                 %span(tk-date-format="{{billItem.occurredOn}}" format='DD.MM')

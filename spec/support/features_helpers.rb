@@ -26,5 +26,32 @@ module Features
         raise Capybara::ElementNotFound.new(e.message + " (#{duration})")
       end
     end
+
+    def debug_page
+      page.driver.debug
+    end
+
+    def basic_models
+      user = FactoryGirl.create(:user_with_therapist)
+      therapist_list = user.therapist.abbrv
+      {
+          user: user,
+          therapies: [
+              FactoryGirl.create(:event_category, abbrv: 'et', title: 'einzel therapie'),
+              FactoryGirl.create(:event_category, abbrv: 'gt', title: 'gruppen therapie')
+          ],
+          clients: [
+              FactoryGirl.create(:client, first_name: 'John', last_name: 'Smith', therapist_list: therapist_list),
+              FactoryGirl.create(:client, first_name: 'Sally', last_name: 'Jax', therapist_list: therapist_list)
+          ]
+      }
+    end
+
+    def select_client(name)
+      find('#s2id_select-client .select2-chosen').click
+      find('.select2-result-label', text: name).click
+    end
+
+
   end
 end
