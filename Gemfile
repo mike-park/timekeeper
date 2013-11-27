@@ -73,6 +73,7 @@ group :test do
   gem "database_cleaner", "~> 1.2.0"
   # phantomjs headless browser
   gem 'poltergeist', '~> 1.4.1'
+  gem 'launchy', '~> 2.4.1'
 end
 
 group :production do

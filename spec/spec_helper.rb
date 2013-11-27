@@ -29,7 +29,7 @@ RSpec.configure do |config|
   Capybara.register_driver :poltergeist do |app|
     Capybara::Poltergeist::Driver.new(app, debug: false, inspector: true)
   end
-  Capybara.default_wait_time=5
+  Capybara.default_wait_time=10
 
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

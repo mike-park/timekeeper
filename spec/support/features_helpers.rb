@@ -1,5 +1,17 @@
 module Features
   module Helpers
+    def login_user(user = nil)
+      user ||= FactoryGirl.create(:user_with_therapist)
+      render_on_error do
+        visit root_path
+        fill_in 'user_email', with: user.email
+        fill_in 'user_password', with: user.password
+        click_button 'sign_in'
+        page.should have_text("IFF Timekeeper #{user.name}")
+      end
+      user
+    end
+
     def render_page(name)
       page.driver.render(name, full: true)
     end
