@@ -26,5 +26,5 @@
           %td= bill.billed_on.to_s(:de)
           %td= link_to(bill.number, bill)
           = td_money(bill.total)
-          %td= edit_link edit_therapist_bill_path(parent, bill)
-          %td= destroy_link([parent, bill])
+          %td.edit-link= edit_link edit_therapist_bill_path(parent, bill)
+          %td.destroy-link= destroy_link([parent, bill])
