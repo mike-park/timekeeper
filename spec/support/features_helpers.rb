@@ -12,7 +12,7 @@ module Features
       user
     end
 
-    def render_page(name)
+    def render_page(name = 'last_page.png')
       page.driver.render(name, full: true)
     end
 
@@ -22,7 +22,7 @@ module Features
         yield
       rescue Capybara::ElementNotFound => e
         duration = Time.now - start
-        render_page('last_page.png')
+        render_page
         raise Capybara::ElementNotFound.new(e.message + " (#{duration})")
       end
     end

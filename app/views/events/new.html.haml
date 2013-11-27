@@ -12,7 +12,7 @@
         Show billed & unbilled events
 
     .col-sm-6(ng-show='current.therapist')
-      %input(tk-select2='{allowClear: true}' data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
+      %input#select_client(tk-select2='{allowClear: true}' data-placeholder="Select Client ({{clients.length}})" ng-model="current.client" collection='clients')
       %label.all-box
         %input(type='checkbox' ng-model='showAllClients')
         Include all clients
