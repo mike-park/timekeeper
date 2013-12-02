@@ -12,7 +12,9 @@
     %h4
       {{client.fullName}}
       %a.btn.btn-sm.btn-default(href='{{client.url}}/edit') Edit
-      %a.btn.btn-sm.btn-default(tk-confirm='deleteClient(client)' title='Delete {{client.fullName}}' ng-hide='client.events.length') Delete
+      - if current_user.has_role? :admin
+        %a.btn.btn-sm.btn-default(tk-confirm='deleteClient(client)' title='Delete {{client.fullName}}'
+                                  ng-hide='client.events.length') Delete
 
     .row
       .col-sm-2

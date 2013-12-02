@@ -18,4 +18,12 @@ class Api::ClientsController < ApplicationController
   def show
     render json: resource, serializer: ClientShowSerializer, root: false
   end
+
+  def destroy
+    if resource.events.any?
+      render json: {error: 'Client with events cannot be deleted'}, status: 422
+    else
+      destroy!
+    end
+  end
 end
